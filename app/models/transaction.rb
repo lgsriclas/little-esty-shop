@@ -1,5 +1,5 @@
 class Transaction < ApplicationRecord
-  belongs_to :invoice
+  belongs_to :invoice, counter_cache: :transactions_count
   enum result: [:success, :failed]
 
   # def top_5
@@ -10,5 +10,5 @@ class Transaction < ApplicationRecord
     # end
     #
     # vip.order()
-  end
+  #end
 end
