@@ -55,4 +55,9 @@ RSpec.describe 'dashboard' do
     expect(page).to have_content(@customer_1.number_of_transactions)
 
   end
+
+  it 'has an incomplete invoices section' do
+    visit '/admin'
+    expect(page).to have_content("Incomplete Invoices")
+  end
 end
