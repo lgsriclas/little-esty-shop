@@ -96,4 +96,15 @@ RSpec.describe 'merchant invoices show page' do
     expect(page).to have_field(:status)
     expect(page).to have_button("Update Invoice Status")
   end
+
+  it 'returns a user to the show page after updating invoice status' do
+    visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_2.id}"
+
+    expect(@invoice_2.status).to eq("cancelled")
+
+    select 'completed', from: :status
+    click_button "Update Invoice Status"
+
+    expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@invoice_2.id}")
+  end
 end
