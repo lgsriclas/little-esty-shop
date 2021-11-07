@@ -40,14 +40,6 @@ RSpec.describe 'merchant invoices show page' do
     expect(page).to have_content(@invoice_1.id)
   end
 
-  it 'shows the invoice status' do
-    visit "/merchants/#{@merchant_2.id}/invoices/#{@invoice_3.id}"
-    # visit merchant_invoices_path(@merchant_2, @invoice_3)
-
-    expect(page).to have_content(@invoice_3.status)
-    expect(page).to_not have_content(@invoice_1.status)
-  end
-
   it 'shows created at date' do
     visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
     # visit merchant_invoices_path(@merchant_1, @invoice_1)
@@ -86,16 +78,22 @@ RSpec.describe 'merchant invoices show page' do
     expect(page).to_not have_content(@item_1.unit_price)
   end
 
-  it 'shows invoice item status' do
+  it 'shows the invoice status' do
     visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
 
-    expect(page).to have_content(@invoice_1.status)
-    expect(page).to_not have_content(@invoice_3.status)
+    expect(page).to have_field(:status)
   end
 
   it 'shows total revenue for invoice' do
     visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
 
     expect(page).to have_content("Total Revenue Generated: $#{@ii_1.item_revenue}")
+  end
+
+  it 'lets users select a new invoice status' do
+    visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
+
+    expect(page).to have_field(:status)
+    expect(page).to have_button("Update Invoice Status")
   end
 end
