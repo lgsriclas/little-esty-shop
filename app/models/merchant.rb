@@ -4,11 +4,11 @@ class Merchant < ApplicationRecord
   has_many :invoices, through: :invoice_items
 
   def top_5
-    wip = items.select('items.*, sum(invoice_items.quantity * invoice_items.unit_price) as revenue')
-    .joins(:invoice_items, invoices: :transactions)
+    items.select(:items, 'sum(invoice_items.quantity * invoice_items.unit_price) as item_revenue')
+    .joins(invoices: :transactions)
     .where(transactions: {result: 0})
+    .order(item_revenue: :desc)
     .group(:id)
-    .order(revenue: :desc)
     .limit(5)
   end
   
