@@ -105,4 +105,13 @@ RSpec.describe 'merchant invoices show page' do
     expect(page).to have_field(:status)
     expect(page).to have_button("Update Item Status")
   end
+
+  it 'returns a user to the show page after updating item status' do
+    visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
+
+    select 'packaged', from: :status
+    click_button "Update Item Status"
+
+    expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}")
+  end
 end
