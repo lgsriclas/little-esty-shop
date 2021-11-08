@@ -1,4 +1,7 @@
 <% @merchant.items.each do |item| %>
   <%= link_to item.name, merchant_item_path(@merchant.id,item.id) %>
+<% end %>
 
+<% @top_5_items.each do |item| %>
+  <%= link_to item.name, merchant_item_path(@merchant.id,item.id) %>
 <% end %>
