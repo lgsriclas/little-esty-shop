@@ -35,14 +35,14 @@ RSpec.describe 'merchant invoices show page' do
   it 'shows the inovice id' do
     visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
 
-    # visit merchant_invoices_path(@merchant_1, @invoice_1)
+    # visit merchant_invoice_path(@merchant_1, @invoice_1)
 
     expect(page).to have_content(@invoice_1.id)
   end
 
   it 'shows the invoice status' do
     visit "/merchants/#{@merchant_2.id}/invoices/#{@invoice_3.id}"
-    # visit merchant_invoices_path(@merchant_2, @invoice_3)
+    # visit merchant_invoice_path(@merchant_2, @invoice_3)
 
     expect(page).to have_content(@invoice_3.status)
     expect(page).to_not have_content(@invoice_1.status)
@@ -50,14 +50,14 @@ RSpec.describe 'merchant invoices show page' do
 
   it 'shows created at date' do
     visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
-    # visit merchant_invoices_path(@merchant_1, @invoice_1)
+    # visit merchant_invoice_path(@merchant_1, @invoice_1)
 
     expect(page).to have_content(@invoice_1.created_at.strftime('%A, %B %d, %Y'))
   end
 
   it 'shows customer first and last name' do
     visit "/merchants/#{@merchant_2.id}/invoices/#{@invoice_4.id}"
-    # visit merchant_invoices_path(@merchant_2, @invoice_4)
+    # visit merchant_invoice_path(@merchant_2, @invoice_4)
 
     expect(page).to have_content(@customer_2.first_name)
     expect(page).to have_content(@customer_2.last_name)
@@ -106,7 +106,7 @@ RSpec.describe 'merchant invoices show page' do
     expect(page).to have_button("Update Item Status")
   end
 
-  it 'returns a user to the show page after updating item status' do
+  it 'returns a user to the show page after updating invoice item status' do
     visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
 
     select 'packaged', from: :status
