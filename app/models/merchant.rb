@@ -4,7 +4,12 @@ class Merchant < ApplicationRecord
   has_many :invoices, through: :invoice_items
 
   def top_5
-    items.top_5_by_revenue
+    wip = items.select('items.*, sum(invoice_items.quantity * invoice_items.unit_price) as revenue')
+    .joins(:invoice_items, invoices: :transactions)
+    .where(transactions: {result: 0})
+    .group(:id)
+    .order(revenue: :desc)
+    .limit(5)
   end
   
   def self.enabled?
