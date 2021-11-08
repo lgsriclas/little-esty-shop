@@ -1,12 +1,15 @@
 <h1><%= @invoice.id %>/h1>
 <h3>Status: </h3><%= @invoice.status %>
+
 <h3>Customer: </h3>
 <p>First Name:</p><%= @invoice.customer.first_name %>
 <p>Last Name:</p><%= @invoice.customer.last_name %>
+
 <h3>Created At: </h3><%= @invoice.created_at.strftime('%A, %B %d, %Y') %>
+
 <h3>Items: </h3><%= @item.name %>
 <p>Quantity: </p><%= @invoice_items.quantity %>
 <p>Unit Price: </p><%= @item.unit_price %>
-<p>Status: </p><%= @invoice.status %>
+<p>Status: </p>
 
 Total Revenue Generated: $<%= @invoice_items.item_revenue %>
