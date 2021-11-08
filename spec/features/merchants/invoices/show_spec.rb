@@ -98,4 +98,11 @@ RSpec.describe 'merchant invoices show page' do
 
     expect(page).to have_content("Total Revenue Generated: $#{@ii_1.item_revenue}")
   end
+
+  it 'allows user to update item status' do
+    visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
+
+    expect(page).to have_field(:status)
+    expect(page).to have_button("Update Item Status")
+  end
 end
