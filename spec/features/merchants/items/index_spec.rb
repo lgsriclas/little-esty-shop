@@ -62,6 +62,20 @@ RSpec.describe 'merchant items index page' do
     expect(page).to have_link "Create New Item"
   end
 
+  it 'returns user to merchant items index after creating new item' do
+    visit merchant_items_path(@merchant_1)
+
+    click_link "Create New Item"
+
+    fill_in 'Name', with: 'Thor Ladle'
+    fill_in 'Description', with: 'Perfectly Balanced'
+    fill_in 'Unit price', with: 20
+    click_on 'Create Item'
+
+    expect(current_path).to eq(merchant_items_path(@merchant_1))
+    expect(page).to have_content("Thor Ladle")
+  end
+
   it 'has a button to disable or enable each item' do
     visit merchant_items_path(@merchant_2)
 
