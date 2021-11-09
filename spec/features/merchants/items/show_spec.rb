@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'show page' do
+RSpec.describe 'Merchant Items show page' do
   before :each do
     @merchant_1 = Merchant.create!(name: "Larry's Lucky Ladles")
 
