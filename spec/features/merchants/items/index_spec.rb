@@ -10,8 +10,8 @@ RSpec.describe 'merchant items index page' do
     @item_3 = Item.create!(name: "Green Ladle", description: "It is green", unit_price: 15, merchant_id: @merchant_1.id)
     @item_4 = Item.create!(name: "Purple Ladle", description: "It is purple", unit_price: 17, merchant_id: @merchant_1.id)
     @item_5 = Item.create!(name: "Yellow Ladle", description: "It is yellow", unit_price: 14, merchant_id: @merchant_1.id)
-    @item_6 = Item.create!(name: "Orange Ladle", description: "It is orange", unit_price: 20, merchant_id: @merchant_1.id)
-    @item_7 = Item.create!(name: "Black Ladle", description: "It is black", unit_price: 5, merchant_id: @merchant_1.id)
+    @item_6 = Item.create!(name: "Orange Ladle", description: "It is orange", unit_price: 20, merchant_id: @merchant_2.id)
+    @item_7 = Item.create!(name: "Black Ladle", description: "It is black", unit_price: 5, merchant_id: @merchant_2.id)
 
     @customer_1 = Customer.create!(first_name: "Sally", last_name: "Brown")
     @customer_2 = Customer.create!(first_name: "Morgan", last_name: "Freeman")
@@ -44,18 +44,15 @@ RSpec.describe 'merchant items index page' do
     expect(page).to have_content(@item_1.name)
     expect(page).to have_content(@item_2.name)
 
-    expect(page).not_to have_content(item3.name)
-    expect(page).not_to have_content(item4.name)
+    expect(page).not_to have_content(@item_6.name)
+    expect(page).not_to have_content(@item_7.name)
   end
 
   it "has item links that take the merchant to the item's show page" do
-    merchant = Merchant.create!(name: 'Ted')
-    item = Item.create!(name: 'Hammer', description: 'Hits stuff', unit_price: 24, merchant_id: merchant.id)
+    visit merchant_items_path(@merchant_2)
 
-    visit merchant_items_path(merchant)
+    click_on("#{@item_6.name}")
 
-    click_on("#{item.name}")
-
-    expect(current_path).to eq(merchant_item_path(merchant,item))
+    expect(current_path).to eq(merchant_item_path(@merchant_2, @item_6))
   end
 end
