@@ -39,4 +39,4 @@ This project requires Ruby 2.7.2.
 
 
 
-![Database design](.lib/assets/database_design.png)
+![Database design](./lib/assets/database_design.png)
