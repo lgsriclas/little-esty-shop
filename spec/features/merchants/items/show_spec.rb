@@ -49,9 +49,16 @@ RSpec.describe 'show page' do
     expect(page).not_to have_content(@item_3.unit_price)
   end
 
-  it 'has a link to update item information' do
+  it 'has a link to a form to update item information' do
     visit merchant_item_path(@merchant_1, @item_2)
 
     expect(page).to have_link("Update Item Information")
+
+    click_link("Update Item Information")
+
+    expect(current_path).to eq("merchants/#{@merchant_1.id}/items/#{@item_2.id}/edit")
+
   end
+
+
 end
