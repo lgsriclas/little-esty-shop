@@ -12,8 +12,10 @@ RSpec.describe 'show page' do
     @item_6 = Item.create!(name: "Orange Ladle", description: "It is orange", unit_price: 20, merchant_id: @merchant_1.id)
     @item_7 = Item.create!(name: "Black Ladle", description: "It is black", unit_price: 5, merchant_id: @merchant_1.id)
 
+
     @customer_1 = Customer.create!(first_name: "Sally", last_name: "Brown")
     @customer_2 = Customer.create!(first_name: "Morgan", last_name: "Freeman")
+
 
     @invoice_1 = Invoice.create!(status: 1, customer_id: @customer_1.id)
     @invoice_2 = Invoice.create!(status: 1, customer_id: @customer_1.id)
@@ -71,4 +73,5 @@ RSpec.describe 'show page' do
     expect(current_path).to eq(merchant_item_path(@merchant_1, @item_1))
     expect(page).to have_content("Darth Vader Ladle")
   end
+
 end
