@@ -2,7 +2,7 @@
   <%= link_to item.name, merchant_item_path(@merchant.id,item.id) %>
 <% end %>
 
-<% @top_5_items.each do |item| %>
+<% @merchant.top_5.each do |item| %>
   <div id="top-5-<%= item.id  %>">
     <%= link_to item.name, merchant_item_path(@merchant.id,item.id) %>
   </div>
