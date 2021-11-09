@@ -56,6 +56,12 @@ RSpec.describe 'merchant items index page' do
     expect(current_path).to eq(merchant_item_path(@merchant_2, @item_6))
   end
 
+  it 'has a link to create a new item' do
+    visit merchant_items_path(@merchant_1)
+
+    expect(page).to have_link "Create New Item"
+  end
+
   it 'has a button to disable or enable each item' do
     visit merchant_items_path(@merchant_2)
 
