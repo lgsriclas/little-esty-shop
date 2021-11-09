@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+require 'launchy'
 
 RSpec.describe 'dashboard' do
   before :each do
@@ -50,9 +50,22 @@ RSpec.describe 'dashboard' do
 
   it 'can return a list of top 5 customers by successful transactions' do
     visit '/admin'
+
     expect(page).to have_content(@customer_1.first_name)
     expect(page).to have_content(@customer_1.last_name)
     expect(page).to have_content(@customer_1.number_of_transactions)
 
+  end
+
+  it 'has an incomplete invoices section ordered by date w/ date created shown' do
+    visit '/admin'
+    expect(page).to have_content("Incomplete Invoices")
+    expect(page).to have_link("#{@invoice_1.id}")
+    expect(page).to have_content("#{@invoice_1.created_at}")
+    this = "#{@invoice_1.id}"
+    that = "#{@invoice_2.id}"
+    expect(this).to appear_before(that)
+    click_link("#{@invoice_1.id}")
+    expect(page).to have_current_path("/admin/invoices/#{@invoice_1.id}")
   end
 end

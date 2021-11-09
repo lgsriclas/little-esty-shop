@@ -4,12 +4,24 @@
 <%= link_to "Invoice Index", "/admin/invoices" %>
 
 <h3>Top Customers:</h3>
-
-
 <body>
       <ol>
       <% @top_customers.each do |customer| %>
           <li> <%= customer["first_name"] + " " + customer["last_name"] + ": " + customer["transaction_count"].to_s %> </li>
       <% end %>
       </ol>
+</body>
+
+<br>
+<br>
+
+<h3>Incomplete Invoices</h3>
+<body>
+    <ul>
+      <% @incomplete_invoices_created_at.each do |invoice_array| %>
+       <li><%= link_to("#{invoice_array.first}", "/admin/invoices/#{invoice_array.first}") %>
+            <%= invoice_array.second %> </li>
+      <% end %>
+
+    </ul>
 </body>

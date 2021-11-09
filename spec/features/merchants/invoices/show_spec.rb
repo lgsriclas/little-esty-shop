@@ -29,20 +29,20 @@ RSpec.describe 'merchant invoices show page' do
     @ii_1 = InvoiceItem.create!(quantity: 1, unit_price: 10, status: 1, item_id: @item_1.id, invoice_id: @invoice_1.id)
     @ii_2 = InvoiceItem.create!(quantity: 1, unit_price: 12, status: 2, item_id: @item_2.id, invoice_id: @invoice_2.id)
     @ii_3 = InvoiceItem.create!(quantity: 1, unit_price: 40, status: 0, item_id: @item_3.id, invoice_id: @invoice_3.id)
-    @ii_4 = InvoiceItem.create!(quantity: 1, unit_price: 30, status: 2, item_id: @item_4.id, invoice_id: @invoice_4.id)
+    @ii_4 = InvoiceItem.create!(quantity: 3, unit_price: 30, status: 2, item_id: @item_4.id, invoice_id: @invoice_4.id)
   end
 
   it 'shows the inovice id' do
     visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
 
-    # visit merchant_invoices_path(@merchant_1, @invoice_1)
+    # visit merchant_invoice_path(@merchant_1, @invoice_1)
 
     expect(page).to have_content(@invoice_1.id)
   end
 
   it 'shows the invoice status' do
     visit "/merchants/#{@merchant_2.id}/invoices/#{@invoice_3.id}"
-    # visit merchant_invoices_path(@merchant_2, @invoice_3)
+    # visit merchant_invoice_path(@merchant_2, @invoice_3)
 
     expect(page).to have_content(@invoice_3.status)
     expect(page).to_not have_content(@invoice_1.status)
@@ -50,18 +50,68 @@ RSpec.describe 'merchant invoices show page' do
 
   it 'shows created at date' do
     visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
-    # visit merchant_invoices_path(@merchant_1, @invoice_1)
+    # visit merchant_invoice_path(@merchant_1, @invoice_1)
 
     expect(page).to have_content(@invoice_1.created_at.strftime('%A, %B %d, %Y'))
   end
 
   it 'shows customer first and last name' do
     visit "/merchants/#{@merchant_2.id}/invoices/#{@invoice_4.id}"
-    # visit merchant_invoices_path(@merchant_2, @invoice_4)
+    # visit merchant_invoice_path(@merchant_2, @invoice_4)
 
     expect(page).to have_content(@customer_2.first_name)
     expect(page).to have_content(@customer_2.last_name)
     expect(page).to_not have_content(@customer_1.first_name)
     expect(page).to_not have_content(@customer_1.last_name)
+  end
+
+  it 'shows item names' do
+    visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_2.id}"
+
+    expect(page).to have_content(@item_2.name)
+    expect(page).to_not have_content(@item_3.name)
+  end
+
+  it 'shows item quantities' do
+    visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_2.id}"
+
+    expect(page).to have_content(@ii_2.quantity)
+    expect(page).to_not have_content(@ii_4.quantity)
+  end
+
+  it 'shows item price' do
+    visit "/merchants/#{@merchant_2.id}/invoices/#{@invoice_3.id}"
+
+    expect(page).to have_content(@item_3.unit_price)
+    expect(page).to_not have_content(@item_1.unit_price)
+  end
+
+  it 'shows invoice item status' do
+    visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
+
+    expect(page).to have_content(@invoice_1.status)
+    expect(page).to_not have_content(@invoice_3.status)
+  end
+
+  it 'shows total revenue for invoice' do
+    visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
+
+    expect(page).to have_content("Total Revenue Generated: $#{@ii_1.item_revenue}")
+  end
+
+  it 'allows user to update item status' do
+    visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
+
+    expect(page).to have_field(:status)
+    expect(page).to have_button("Update Item Status")
+  end
+
+  it 'returns a user to the show page after updating invoice item status' do
+    visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
+
+    select 'packaged', from: :status
+    click_button "Update Item Status"
+
+    expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}")
   end
 end
