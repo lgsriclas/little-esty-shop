@@ -38,7 +38,7 @@ RSpec.describe 'merchant items index page' do
     @transaction_7 = Transaction.create!(credit_card_number: "5233 2322 3211 2300", credit_card_expiration_date: "2021-12-23", result: 1, invoice_id: @invoice_2.id)
   end
 
-  it "only shows the names of the merchant's items" do
+  it 'only shows the names of the merchant items' do
     visit merchant_items_path(@merchant_1)
 
     expect(page).to have_content(@item_1.name)
@@ -48,11 +48,31 @@ RSpec.describe 'merchant items index page' do
     expect(page).not_to have_content(@item_7.name)
   end
 
-  it "has item links that take the merchant to the item's show page" do
+  it 'has item links that take the merchant to the item show page' do
     visit merchant_items_path(@merchant_2)
 
     click_on("#{@item_6.name}")
 
     expect(current_path).to eq(merchant_item_path(@merchant_2, @item_6))
+  end
+
+  it 'has a button to disable or enable each item' do
+    visit merchant_items_path(@merchant_2)
+
+    within "#id-#{@item_6.id}" do
+      click_button "Disable"
+    end
+
+    within "#id-#{@item_7.id}" do
+      click_button "Disable"
+    end
+
+    expect(current_path).to eq(merchant_items_path(@merchant_2))
+    within "#id-#{@item_6.id}" do
+      expect(page).to have_button "Enable"
+    end
+    within "#id-#{@item_7.id}" do
+      expect(page).to have_button "Enable"
+    end
   end
 end

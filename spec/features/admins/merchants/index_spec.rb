@@ -21,10 +21,10 @@ RSpec.describe 'Admin Merchant Index' do
     expect(page).to have_link(@merchant_1.name)
   end
 
-  xit 'has a button to enable/disable a given merchant' do
+  it 'has a button to enable/disable a given merchant' do
     visit '/admin/merchants'
 
-    expect(page).to have_button("Disable")
+    expect(page).to have_button("Disable", count: 2)
     expect(@merchant_1.status).to eq(true)
 
     within(".#{@merchant_1.id}-button") do
