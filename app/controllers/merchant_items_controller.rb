@@ -16,8 +16,13 @@ class MerchantItemsController < ApplicationController
   def update
     @merchant = Merchant.find(params[:merchant_id])
     @item = Item.find(params[:id])
-    @item.update(item_params)
-    redirect_to merchant_item_path(@merchant, @item)
+    if @item.update(item_params)
+      flash[:notice] = "Successfully Updated Information"
+      redirect_to merchant_item_path(@merchant, @item)
+    else
+      flash[:alert] = "Error: #{error_message(@item.errors)}"
+      redirect_to edit_merchant_item_path(@merchant, @item)
+    end
   end
 
   private
