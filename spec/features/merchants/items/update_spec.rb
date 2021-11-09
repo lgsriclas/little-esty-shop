@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'show page' do
+RSpec.describe 'Merchant Item Update page' do
   before :each do
     @merchant_1 = Merchant.create!(name: "Larry's Lucky Ladles")
 
@@ -37,38 +37,17 @@ RSpec.describe 'show page' do
     @transaction_7 = Transaction.create!(credit_card_number: "5233 2322 3211 2300", credit_card_expiration_date: "2021-12-23", result: 1, invoice_id: @invoice_2.id)
   end
 
-  it 'shows the item attributes' do
-    visit merchant_item_path(@merchant_1, @item_1)
-
-    expect(page).to have_content(@item_1.name)
-    expect(page).to have_content(@item_1.description)
-    expect(page).to have_content(@item_1.unit_price)
-
-    expect(page).not_to have_content(@item_3.name)
-    expect(page).not_to have_content(@item_3.description)
-    expect(page).not_to have_content(@item_3.unit_price)
-  end
-
-  it 'has a link to a form to update item information' do
-    visit merchant_item_path(@merchant_1, @item_2)
-
-    expect(page).to have_link("Update Item Information")
-
-    click_link("Update Item Information")
-
-    expect(current_path).to eq("/merchants/#{@merchant_1.id}/items/#{@item_2.id}/edit")
-  end
-
   it 'returns a user to the show page after updating item information' do
     visit merchant_item_path(@merchant_1, @item_1)
 
     click_link("Update Item Information")
-    fill_in :name, with: "Darth Vader Ladle"
-    fill_in :description, with: "For soups from the dark side."
-    fill_in :unit_price, with: 12
+    fill_in :name, with: "Han Solo Ladle"
+    fill_in :description, with: "Don't forget your Chewy!"
+    fill_in :unit_price, with: 11
     click_button "Submit Changes"
 
     expect(current_path).to eq(merchant_item_path(@merchant_1, @item_1))
-    expect(page).to have_content("Darth Vader Ladle")
+    expect(page).to have_content("Han Solo Ladle")
   end
+
 end
