@@ -10,8 +10,8 @@ RSpec.describe 'merchant items index page' do
     @item_3 = Item.create!(name: "Green Ladle", description: "It is green", unit_price: 15, merchant_id: @merchant_1.id)
     @item_4 = Item.create!(name: "Purple Ladle", description: "It is purple", unit_price: 17, merchant_id: @merchant_1.id)
     @item_5 = Item.create!(name: "Yellow Ladle", description: "It is yellow", unit_price: 14, merchant_id: @merchant_1.id)
-    @item_6 = Item.create!(name: "Orange Ladle", description: "It is orange", unit_price: 20, merchant_id: @merchant_2.id)
-    @item_7 = Item.create!(name: "Black Ladle", description: "It is black", unit_price: 5, merchant_id: @merchant_2.id)
+    @item_6 = Item.create!(name: "Orange Ladle", description: "It is orange", unit_price: 20, merchant_id: @merchant_2.id, status: 1)
+    @item_7 = Item.create!(name: "Black Ladle", description: "It is black", unit_price: 5, merchant_id: @merchant_2.id, status: 1)
 
     @customer_1 = Customer.create!(first_name: "Sally", last_name: "Brown")
     @customer_2 = Customer.create!(first_name: "Morgan", last_name: "Freeman")
@@ -59,20 +59,18 @@ RSpec.describe 'merchant items index page' do
   it 'has a button to disable or enable each item' do
     visit merchant_items_path(@merchant_2)
 
-    within "#id-#{@item_6.id}" do
+    within "#item-#{@item_6.id}" do
       click_button "Disable"
+
+      expect(@item_6.status).to eq("disabled")
     end
 
-    within "#id-#{@item_7.id}" do
+    within "#item-#{@item_7.id}" do
       click_button "Disable"
+
+      expect(@item_7.status).to eq("disabled")
     end
 
     expect(current_path).to eq(merchant_items_path(@merchant_2))
-    within "#id-#{@item_6.id}" do
-      expect(page).to have_button "Enable"
-    end
-    within "#id-#{@item_7.id}" do
-      expect(page).to have_button "Enable"
-    end
   end
 end

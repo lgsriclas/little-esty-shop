@@ -2,6 +2,12 @@
   <%= link_to item.name, merchant_item_path(@merchant.id,item.id) %>
 <% end %>
 
+<section id="status">
 <% @enabled_items.each do |item| %>
+  <section id="item-<%= item.id %>">
   <%= link_to "#{item.name}", merchant_item_path(@merchant, item) %>
+  <%= button_to "Disable", merchant_item_status_path(@merchant, item), method: :patch, params: {status: "disabled"} %>
+  </section>
 <% end %>
+</section>
+
