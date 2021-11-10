@@ -4,7 +4,12 @@ class Merchant < ApplicationRecord
   has_many :invoices, through: :invoice_items
 
   def top_5
-    items.top_5_by_revenue
+    items.select('items.name, items.id, sum(invoice_items.quantity * invoice_items.unit_price) as item_revenue')
+    .joins(invoices: :transactions)
+    .where(transactions: {result: 0})
+    .order(item_revenue: :desc)
+    .group(:id)
+    .limit(5)
   end
 
   def self.enabled?
@@ -13,6 +18,10 @@ class Merchant < ApplicationRecord
 
   def self.disabled?
     where(status: false)
+  end
+
+  def favorite_customers
+    Customer.joins(invoices: [:transactions, [invoice_items: [item: [:merchant]]]]).select('customers.*, COUNT(transactions.id) as transaction_count').where(transactions: {result: 0}).where(merchants: {id: id}).group(:id).order(transaction_count: :desc).limit(5)
   end
 
   def self.big_5

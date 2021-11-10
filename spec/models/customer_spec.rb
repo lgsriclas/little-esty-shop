@@ -39,7 +39,6 @@ RSpec.describe Customer, type: :model do
 
   describe "relationships" do
     it {should have_many :invoices}
-    it {should have_many :merchants}
     it {should have_many :invoices}
   end
   it 'can calculate number of transactions' do
@@ -47,7 +46,7 @@ RSpec.describe Customer, type: :model do
     expect(@customer_2.number_of_transactions).to eq(0)
   end
   it 'can find top 5 customers by number of transactions w/ succesful transactions' do
-    expect([Customer.top_5.first]).to eq([@customer_1])
+    expect(Customer.top_5.first.values).to include("Sally")
     expect([Customer.top_5.second]).to eq([nil])
 
 

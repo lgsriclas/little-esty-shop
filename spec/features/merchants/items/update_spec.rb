@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe InvoiceItem, type: :model do
+RSpec.describe 'Merchant Item Update page' do
   before :each do
     @merchant_1 = Merchant.create!(name: "Larry's Lucky Ladles")
 
@@ -37,17 +37,17 @@ RSpec.describe InvoiceItem, type: :model do
     @transaction_7 = Transaction.create!(credit_card_number: "5233 2322 3211 2300", credit_card_expiration_date: "2021-12-23", result: 1, invoice_id: @invoice_2.id)
   end
 
-  describe "relationships" do
-    it {should belong_to :invoice}
-    it {should belong_to :item}
+  it 'returns a user to the show page after updating item information' do
+    visit merchant_item_path(@merchant_1, @item_1)
+
+    click_link("Update Item Information")
+    fill_in :name, with: "Han Solo Ladle"
+    fill_in :description, with: "Don't forget your Chewy!"
+    fill_in :unit_price, with: 11
+    click_button "Submit Changes"
+
+    expect(current_path).to eq(merchant_item_path(@merchant_1, @item_1))
+    expect(page).to have_content("Han Solo Ladle")
   end
 
-  describe 'class methods' do
-    it 'returns item revenue top 5' do
-      expect(InvoiceItem.item_revenue).to eq([@item_6.id, @item_4.id, @item_3.id, @item_5.id, @item_2.id, @item_1.id, @item_7.id])
-    end
-    it 'returns an array of incomplete invoice_item ids' do
-      expect(InvoiceItem.incomplete_invoices).to eq([@invoice_1.id, @invoice_2.id])
-    end
-  end
 end
