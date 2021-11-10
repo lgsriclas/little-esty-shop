@@ -70,7 +70,7 @@ RSpec.describe 'Admin Merchant Index' do
 
   it 'shows the top 5 merchants by revenue, with their revenue' do
     visit '/admin/merchants'
-
+    save_and_open_page
     expect(page).to have_content("Top 5 Merchants by Revenue:")
 
     expect(page).to have_content(@merchant_1.name)
