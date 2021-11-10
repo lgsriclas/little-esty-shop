@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   # end
 
 
-  resources :merchants, only: :index do
+  resources :merchants, only: [:show] do
     resources :dashboard, only: [:index]
     resources :items, except: [:destroy], controller: :merchant_items
     resources :item_status, only: [:update]
