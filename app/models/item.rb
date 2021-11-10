@@ -8,9 +8,8 @@ class Item < ApplicationRecord
   end
 
   def self.ready_to_ship
-    wip = joins(:invoice_items)
+          joins(:invoice_items)
           .where.not(invoice_items: {status: 2})
           .pluck(:id)
-    # require "pry"; binding.pry
   end
 end
