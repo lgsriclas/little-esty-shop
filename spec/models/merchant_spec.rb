@@ -74,19 +74,18 @@ RSpec.describe Merchant, type: :model do
 
     it 'can test for enabled merchants' do
       enabled = Merchant.enabled?
+
       expect(enabled).to eq([@merchant_1, @merchant_2, @merchant_5, @merchant_6])
     end
 
     it 'can test for disabled merchants' do
       disabled = Merchant.disabled?.first
 
-
       expect(disabled).to eq(@merchant_3)
     end
 
     it 'returns the top five item names by revenue' do
       expect(@merchant_1.top_5).to eq([@item_1, @item_8, @item_9, @item_10, @item_11])
-
     end
   end
 end

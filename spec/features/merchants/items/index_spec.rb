@@ -103,6 +103,22 @@ RSpec.describe 'merchant items index page' do
     expect(current_path).to eq(merchant_items_path(@merchant_2))
   end
 
+  it 'has an enabled items section' do
+    visit merchant_items_path(@merchant_2)
+
+    within("#disable_status") do
+      expect(page).to have_content(@item_6.name)
+    end
+  end
+
+  it 'has a disabled items section' do
+    visit merchant_items_path(@merchant_2)
+
+    within("#enable_status") do
+      expect(page).to have_content(@item_7.name)
+    end
+  end
+
   it "shows the top 5 items on the page" do
     visit merchant_items_path(@merchant_1)
 
