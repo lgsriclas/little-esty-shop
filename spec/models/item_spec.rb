@@ -48,4 +48,10 @@ RSpec.describe Item do
       expect(@item_1.revenue).to eq(50)
     end
   end
+
+  describe 'class methods' do
+    it "shows a list of items that are ready to ship" do
+      expect(Item.ready_to_ship).to eq([@item_1.id, @item_3.id, @item_5.id, @item_7.id])
+    end
+  end
 end
