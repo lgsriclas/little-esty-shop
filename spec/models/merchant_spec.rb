@@ -62,7 +62,7 @@ RSpec.describe Merchant, type: :model do
       results = @merchant_1.top_5.map do |merchant|
         merchant.name
       end
-      expect(results).to eq([@item_1.name, @item_7.name, @item_8.name, @item_9.name, @item_10.name])
+      expect(results).to eq([@item_1.name, @item_8.name, @item_9.name, @item_10.name, @item_11.name])
     end
 
     it 'returns the top 5 merchants based on revenue' do
@@ -80,10 +80,10 @@ RSpec.describe Merchant, type: :model do
     it 'can test for disabled merchants' do
       disabled = Merchant.disabled?.first
       expect(disabled).to eq(@merchant_3)
-    end 
-    
+    end
+
     it 'returns the top five item names by revenue' do
-      expect(@merchant_1.top_5).to eq([@item_6, @item_4, @item_3, @item_5, @item_2])
+      expect(@merchant_1.top_5).to eq([@item_1, @item_8, @item_9, @item_10, @item_11])
 
     end
   end
