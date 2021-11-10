@@ -3,3 +3,9 @@
 <%= link_to 'Items', merchant_items_path %>
 
 <%= link_to 'Invoices', merchant_invoices_path %>
+
+<h3>Favorite Customers </h3>
+<% @merchant.favorite_customers.each do |customer| %>
+<p> <%= customer.first_name + " " + customer.last_name  %>
+<%= customer.transaction_count %> </p>
+<% end %>
