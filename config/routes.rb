@@ -24,9 +24,8 @@ Rails.application.routes.draw do
 
   resources :merchants, only: :index do
     resources :dashboard, only: [:index]
-    resources :items, only: [:index, :show], controller: :merchant_items
-    resources :invoices, only: [:index, :show], controller: :merchant_invoices
-
+    resources :items, except: [:destroy], controller: :merchant_items
+    resources :invoices, only: [:index, :show, :update], controller: :merchant_invoices
+    resources :item_status, only: [:update]
   end
-
 end
