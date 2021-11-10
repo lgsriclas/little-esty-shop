@@ -11,7 +11,16 @@ class Invoice < ApplicationRecord
     transactions.success
   end
 
-  def top_selling_by_date
-    joins(invoices: :invoice_items).select("invoices.created_at AS date, sum(invoice_items.quantity * invoice_items.unit_price) AS revenue_by_day").group(:date).order(:revenue).first.date.strftime('%A, %B %d, %Y')
+  def top_selling_by_date_by_merchant
+    # joins(invoices: :invoice_items).select("invoices.created_at AS date, sum(invoice_items.quantity * invoice_items.unit_price) AS revenue_by_day").group(:date).order(:revenue).first.date.strftime('%A, %B %d, %Y')
+
+    Invoice.joins(invoice_items: :item, items: :merchant)
+    .joins(:transactions)
+    .where(transactions: {result: 0})
+    .select("max(invoice_items.quantity * invoice_items.unit_price) AS best_date, invoices.updated_at AS date")
+    .group(:id)
+    .order(best_date: :desc)
+    .limit(1)
+    
   end
 end
