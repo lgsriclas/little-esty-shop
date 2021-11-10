@@ -11,12 +11,21 @@ class Merchant < ApplicationRecord
     .group(:id)
     .limit(5)
   end
-  
+
   def self.enabled?
     where(status: true)
   end
 
   def self.disabled?
     where(status: false)
+  end
+
+  def self.big_5
+    joins(items: :invoice_items, invoices: :transactions)
+    .where(transactions: {result: 0})
+    .select("merchants.name, merchants.id, sum(invoice_items.quantity * invoice_items.unit_price) AS revenue")
+    .group(:id)
+    .order(revenue: :desc)
+    .limit(5)
   end
 end
