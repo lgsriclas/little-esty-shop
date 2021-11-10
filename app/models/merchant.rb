@@ -24,4 +24,12 @@ class Merchant < ApplicationRecord
     Customer.joins(invoices: [:transactions, [invoice_items: [item: [:merchant]]]]).select('customers.*, COUNT(transactions.id) as transaction_count').where(transactions: {result: 0}).where(merchants: {id: id}).group(:id).order(transaction_count: :desc).limit(5)
   end
 
+  def self.big_5
+    joins(items: :invoice_items, invoices: :transactions)
+    .where(transactions: {result: 0})
+    .select("merchants.name, merchants.id, sum(invoice_items.quantity * invoice_items.unit_price) AS revenue")
+    .group(:id)
+    .order(revenue: :desc)
+    .limit(5)
+  end
 end
