@@ -39,7 +39,6 @@ RSpec.describe Customer, type: :model do
 
   describe "relationships" do
     it {should have_many :invoices}
-    it {should have_many :merchants}
     it {should have_many :invoices}
   end
   it 'can calculate number of transactions' do
