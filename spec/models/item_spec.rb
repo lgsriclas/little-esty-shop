@@ -51,7 +51,7 @@ RSpec.describe Item do
 
   describe 'class methods' do
     it "shows a list of items that are ready to ship" do
-      expect(Item.ready_to_ship).to eq([@item_1.id, @item_3.id, @item_5.id, @item_7.id])
+      expect(Item.ready_to_ship).to eq([@item_1.name, @item_3.name, @item_5.name, @item_7.name])
     end
   end
 end

@@ -10,6 +10,6 @@ class Item < ApplicationRecord
   def self.ready_to_ship
           joins(:invoice_items)
           .where.not(invoice_items: {status: 2})
-          .pluck(:id)
+          .pluck(:name)
   end
 end
