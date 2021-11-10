@@ -79,6 +79,8 @@ RSpec.describe Merchant, type: :model do
 
     it 'can test for disabled merchants' do
       disabled = Merchant.disabled?.first
+
+
       expect(disabled).to eq(@merchant_3)
     end
 

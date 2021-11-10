@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe 'Admin Merchant Index' do
   before :each do
     @merchant_1 = Merchant.create!(name: "Larry's Lucky Ladles", status: true)
-    @merchant_2 = Merchant.create!(name: "Bob's Burgers")
+    @merchant_2 = Merchant.create!(name: "Bob's Burgers", status: false)
+
     @item_1 = Item.create!(name: "Star Wars Ladle", description: "May the soup be with you", unit_price: 10, merchant_id: @merchant_1.id)
     @item_2 = Item.create!(name: "Sparkle Ladle", description: "Serve in style", unit_price: 12, merchant_id: @merchant_1.id)
     @item_3 = Item.create!(name: "Burger Bun Bookends", description: "Books between buns", unit_price: 40, merchant_id: @merchant_2.id)
@@ -44,15 +45,16 @@ RSpec.describe 'Admin Merchant Index' do
     within "#merchant-#{@merchant_1.id}" do
       click_button "Disable"
 
-      expect(@merchant_1.status).to eq(false)
+      merchant = Merchant.find(@merchant_1.id)
+      expect(merchant.status).to eq(false)
     end
 
-    # within(".#{@merchant_1.id}-button") do
-    #   click_button "Disable"
-    # end
-    #
-    # expect(page).to have_button("Enable")
-    # expect(@merchant_1.status).to eq(false)
+    within "#merchant-#{@merchant_2.id}" do
+      click_button "Enable"
+
+      merchant = Merchant.find(@merchant_2.id)
+      expect(merchant.status).to eq(true)
+    end
   end
 
   it 'provides a link to create a new merchant' do
