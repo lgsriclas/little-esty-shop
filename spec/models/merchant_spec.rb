@@ -47,5 +47,8 @@ RSpec.describe Merchant, type: :model do
     it 'returns the top five item names by revenue' do
       expect(@merchant_1.top_5).to eq([@item_6, @item_4, @item_3, @item_5, @item_2])
     end
+    it 'returns top 5 customers by transaction count with a specific merchant' do
+      expect(@merchant_1.favorite_customers).to eq([@customer_1])
+    end
   end
 end
