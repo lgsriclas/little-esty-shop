@@ -11,7 +11,7 @@ class Merchant < ApplicationRecord
     .group(:id)
     .limit(5)
   end
-  
+
   def self.enabled?
     where(status: true)
   end
@@ -19,4 +19,9 @@ class Merchant < ApplicationRecord
   def self.disabled?
     where(status: false)
   end
+
+  def favorite_customers
+    Customer.joins(invoices: [:transactions, [invoice_items: [item: [:merchant]]]]).select('customers.*, COUNT(transactions.id) as transaction_count').where(transactions: {result: 0}).where(merchants: {id: id}).group(:id).order(transaction_count: :desc).limit(5)
+  end
+
 end
