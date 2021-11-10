@@ -87,15 +87,17 @@ RSpec.describe 'merchant items index page' do
     visit merchant_items_path(@merchant_2)
 
     within "#item-#{@item_6.id}" do
-      click_button "Disable"
+      click_on "Disable"
 
-      expect(@item_6.status).to eq("disabled")
+      item = Item.find(@item_6.id)
+      expect(item.status).to eq("disabled")
     end
 
     within "#item-#{@item_7.id}" do
       click_button "Enable"
 
-      expect(@item_7.status).to eq("enabled")
+      item = Item.find(@item_7.id)
+      expect(item.status).to eq("enabled")
     end
 
     expect(current_path).to eq(merchant_items_path(@merchant_2))
