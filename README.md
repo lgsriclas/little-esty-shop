@@ -37,7 +37,7 @@ Our project utilizes the Rails application database to streamline testing. From 
 
 ## Contributers
 
-1. [Ted Staros](https://github.com/tstaros23)
-1. [Chaz Simons](https://github.com/chazsimons)
-1. [Billy Frey](https://github.com/bfrey08)
-1. [Lesley Sanders](https://github.com/lgsriclas)
+- [Ted Staros](https://github.com/tstaros23)
+- [Chaz Simons](https://github.com/chazsimons)
+- [Billy Frey](https://github.com/bfrey08)
+- [Lesley Sanders](https://github.com/lgsriclas)
