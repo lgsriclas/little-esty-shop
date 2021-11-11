@@ -9,3 +9,9 @@
 <p> <%= customer.first_name + " " + customer.last_name  %>
 <%= customer.transaction_count %> </p>
 <% end %>
+
+<h3>Items Ready to Ship</h3>
+<% @merchant.items.ready_to_ship.each do |item| %>
+  <%= item.name %>
+  <%= item.created_at.strftime("%m/%d/%Y") %>
+<% end %>

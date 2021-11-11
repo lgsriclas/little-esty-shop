@@ -27,10 +27,6 @@ class Merchant < ApplicationRecord
     where(status: false)
   end
 
-  def favorite_customers
-    Customer.joins(invoices: [:transactions, [invoice_items: [item: [:merchant]]]]).select('customers.*, COUNT(transactions.id) as transaction_count').where(transactions: {result: 0}).where(merchants: {id: id}).group(:id).order(transaction_count: :desc).limit(5)
-  end
-
   def self.big_5
     joins(items: :invoice_items, invoices: :transactions)
     .where(transactions: {result: 0})
@@ -40,6 +36,10 @@ class Merchant < ApplicationRecord
     .limit(5)
   end
 
+  def favorite_customers
+    Customer.joins(invoices: [:transactions, [invoice_items: [item: [:merchant]]]]).select('customers.*, COUNT(transactions.id) as transaction_count').where(transactions: {result: 0}).where(merchants: {id: id}).group(:id).order(transaction_count: :desc).limit(5)
+  end
+  
   def best_date
     invoices.joins(:invoice_items, :transactions)
     .where(transactions: {result: 0})
