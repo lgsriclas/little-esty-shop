@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<%require './app/poros/github'%>
 <html>
   <head>
     <title>LittleEtsyShop</title>
@@ -11,7 +10,7 @@
   </head>
 
   <body>
-    <header> <%= @repo %> </header>
+    <%= render 'shared/repo' %>
     <% flash.each do |type, msg| %>
       <div>
         <%= msg %>

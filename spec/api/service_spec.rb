@@ -81,7 +81,16 @@ RSpec.describe GithubService do
   it 'returns the contributers names' do
     json = GithubService.contributers
 
-    expect(json).to have_key(:owner)
+    expect(json[:owner][:login]).to eq('lgsriclas')
+    expect(json[:contributer_1][:login]).to eq('chazsimons')
+    expect(json[:contributer_2][:login]).to eq('tstaros23')
+    expect(json[:contributer_3][:login]).to eq('bfrey08')
+  end
+
+  xit 'returns the contributers names' do
+    json = GithubService.commits
+
+    expect(json[:owner]).to eq('lgsriclas')
     expect(json).to have_key(:contributer_1)
     expect(json).to have_key(:contributer_2)
     expect(json).to have_key(:contributer_3)

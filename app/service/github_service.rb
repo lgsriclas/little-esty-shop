@@ -1,6 +1,3 @@
-require 'faraday'
-require 'json'
-
 class GithubService
   def self.repo
     get_url("little-esty-shop")
