@@ -18,11 +18,11 @@ class Item < ApplicationRecord
     .first
     .date.strftime('%A, %B %d, %Y')
   end
-  
+
   def self.ready_to_ship
     joins(:invoices)
     .select("items.name, invoices.id as id, invoices.created_at as created_at")
     .where("invoice_items.status != 2")
-    .order(created_at: :desc)
+    .order(created_at: :asc)
   end
 end

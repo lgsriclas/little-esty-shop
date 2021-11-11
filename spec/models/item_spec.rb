@@ -53,8 +53,8 @@ RSpec.describe Item do
     it 'returns items ready to ship ordered by created at' do
       to_ship = Item.ready_to_ship
 
-      expect(to_ship.first.name).to eq(@item_7.name)
-      expect(to_ship.last.name).to eq(@item_1.name)
+      expect(to_ship.first.name).to eq(@item_1.name)
+      expect(to_ship.last.name).to eq(@item_7.name)
     end
   end
 end

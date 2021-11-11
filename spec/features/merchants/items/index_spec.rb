@@ -131,28 +131,28 @@ RSpec.describe 'merchant items index page' do
 
     within("#top-5-#{@item_3.id}") do
       expect(page).to have_link(@item_3.name)
-      # expect(page).to have_content(@item_3.revenue)
+      expect(page).to have_content(@item_3.revenue)
       expect(page).not_to have_link(@item_1.name)
       expect(page).not_to have_link(@item_7.name)
     end
 
     within("#top-5-#{@item_4.id}") do
       expect(page).to have_link(@item_4.name)
-      # expect(page).to have_content(@item_4.revenue)
+      expect(page).to have_content(@item_4.revenue)
       expect(page).not_to have_link(@item_1.name)
       expect(page).not_to have_link(@item_7.name)
     end
 
     within("#top-5-#{@item_5.id}") do
       expect(page).to have_link(@item_5.name)
-      # expect(page).to have_content(@item_5.revenue)
+      expect(page).to have_content(@item_5.revenue)
       expect(page).not_to have_link(@item_1.name)
       expect(page).not_to have_link(@item_7.name)
     end
 
     within("#top-5-#{@item_1.id}") do
       expect(page).to have_link(@item_1.name)
-      # expect(page).to have_content(@item_1.revenue)
+      expect(page).to have_content(@item_1.revenue)
       expect(page).not_to have_link(@item_6.name)
       expect(page).not_to have_link(@item_7.name)
     end
