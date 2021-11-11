@@ -8,8 +8,8 @@ class Item < ApplicationRecord
   end
 
   def self.ready_to_ship
-          joins(:invoice_items)
+          wip = joins(invoice_items: :invoice)
           .where.not(invoice_items: {status: 2})
-          .pluck(:name)
+          .pluck(:name, :invoice_id)
   end
 end

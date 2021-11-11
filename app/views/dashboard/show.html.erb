@@ -3,3 +3,10 @@
 <%= link_to 'Items', merchant_items_path %>
 
 <%= link_to 'Invoices', merchant_invoices_path %>
+
+<h1>Items Ready to Ship</h1>
+
+<% @items.ready_to_ship.each do |item| %>
+  <p><%= item.first %>
+  <%= item.second %></p>
+<% end %>

@@ -10,19 +10,28 @@ RSpec.describe 'merchant dashboard page' do
   end
 
   it 'shows link for merchant item show' do
-    merchant1 = Merchant.create!(name: "Larry's Lucky Ladles")
+    merchant_1 = Merchant.create!(name: "Larry's Lucky Ladles")
+    item_1 = Item.create!(name: "Star Wars Ladle", description: "May the soup be with you", unit_price: 10, merchant_id: merchant_1.id)
 
-    visit merchant_dashboard_path(merchant1.id)
+    visit merchant_dashboard_path(merchant_1.id)
 
-    expect(page).to have_link('Items')
+    click_on('Items')
+
+    expect(current_path).to eq(merchant_items_path(merchant_1.id))
   end
 
   it 'shows link for merchant invoices show' do
-    merchant1 = Merchant.create!(name: "Larry's Lucky Ladles")
+    merchant_1 = Merchant.create!(name: "Larry's Lucky Ladles")
+    customer_1 = Customer.create!(first_name: "Sally", last_name: "Brown")
+    item_1 = Item.create!(name: "Star Wars Ladle", description: "May the soup be with you", unit_price: 10, merchant_id: merchant_1.id)
+    invoice_1 = Invoice.create!(status: 1, customer_id: customer_1.id)
+    ii_1 = InvoiceItem.create!(quantity: 5, unit_price: 10, status: 0, item_id: item_1.id, invoice_id: invoice_1.id)
 
-    visit merchant_dashboard_path(merchant1.id)
+    visit merchant_dashboard_path(merchant_1.id)
 
-    expect(page).to have_link('Invoices')
+    click_on('Invoices')
+
+    expect(current_path).to eq(merchant_invoices_path(merchant_1.id))
   end
 
   it 'shows the items names on the show page that are ready to ship page and an invoice ID next to each one' do
@@ -59,5 +68,15 @@ RSpec.describe 'merchant dashboard page' do
     expect(page).to have_content(item_3.name)
     expect(page).to have_content(item_5.name)
     expect(page).to have_content(item_7.name)
+    expect(page).to have_content(invoice_1.id)
+    expect(page).to have_content(invoice_2.id)
+
+    expect(page).to have_link("#{invoice_1.id}")
+    expect(page).to have_link("#{invoice_2.id}")
+
+    click_on("#{invoice_1.id}")
+
+    expect(current_path).to eq(merchant_invoices_path(merchant_1.id, invoice_1.id))
+
   end
 end
