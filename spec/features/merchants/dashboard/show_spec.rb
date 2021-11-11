@@ -64,19 +64,27 @@ RSpec.describe 'merchant dashboard page' do
     visit merchant_dashboard_path(merchant_1.id)
 
     expect(page).to have_content("Items Ready to Ship")
-    expect(page).to have_content(item_1.name)
-    expect(page).to have_content(item_3.name)
-    expect(page).to have_content(item_5.name)
-    expect(page).to have_content(item_7.name)
-    expect(page).to have_content(invoice_1.id)
-    expect(page).to have_content(invoice_2.id)
 
-    expect(page).to have_link("#{invoice_1.id}")
-    expect(page).to have_link("#{invoice_2.id}")
+    within "#item_ship-(#{invoice_1.id})" do
+      expect(page).to have_content(item_1.name)
+      expect(page).to have_link("#{invoice_1.id}")
+      click_on("#{invoice_1.id}")
+      expect(current_path).to eq(merchant_invoices_path(merchant_1.id, invoice_1.id))
+    end
 
-    click_on("#{invoice_1.id}")
+    within "#item_ship(#{item_3.id})" do
+      expect(page).to have_content(item_3.name)
+      expect(page).to have_link("#{invoice_2.id}")
+    end
 
-    expect(current_path).to eq(merchant_invoices_path(merchant_1.id, invoice_1.id))
+    within "#item_ship(#{item_5.id})" do
+      expect(page).to have_content(item_5.name)
+      expect(page).to have_link("#{invoice_1.id}")
+    end
 
+    within "#item_ship(#{item_7.id})" do
+      expect(page).to have_content(item_7.name)
+      expect(page).to have_link("#{invoice_2.id}")
+    end
   end
 end
