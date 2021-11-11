@@ -34,3 +34,10 @@ This project requires Ruby 2.7.2.
 
 ## Testing
 Our project utilizes the Rails application database to streamline testing. From the command-line, run 'rails csv_load:all' to populate the database. Our project uses RSpec as the testing framework.
+
+## Contributers
+
+1. [Ted Staros](https://github.com/tstaros23)
+1. [Chaz Simons](https://github.com/chazsimons)
+1. [Billy Frey](https://github.com/bfrey08)
+1. [Lesley Sanders](https://github.com/lgsriclas)
