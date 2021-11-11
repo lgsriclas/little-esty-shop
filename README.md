@@ -44,4 +44,4 @@ Our project utilizes the Rails application database to streamline testing. From 
 
 ![Database design](./lib/assets/database_design.png)
 
-![Database design](https://turingschool.slack.com/files/U0263RJEB7D/F02KVEDQGJJ/screen_shot_2021-11-03_at_8.29.15_am.png)
+![Database design](./lib/db.png)
