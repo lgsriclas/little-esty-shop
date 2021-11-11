@@ -28,6 +28,7 @@ This project requires Ruby 2.7.2.
 * Clone your fork
 * From the command line, install gems and set up your DB:
     * `bundle`
+    * `rails db:drop db:create db:migrate`
     * `rails csv_load:all`
 * Run the test suite with `bundle exec rspec`.
 * Run your development server with `rails s` to see the app in action.
