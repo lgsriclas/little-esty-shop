@@ -48,4 +48,10 @@ RSpec.describe Item do
       expect(@item_1.revenue).to eq(50)
     end
   end
+
+  describe 'class methods' do
+    it 'returns items ready to ship ordered by created at' do
+      expect(Item.ready_to_ship).to eq([@item_7, @item_5, @item_3, @item_1])
+    end
+  end
 end
