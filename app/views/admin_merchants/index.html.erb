@@ -5,7 +5,7 @@
 <h4>Top 5 Merchants by Revenue:</h4>
 <% @merchants.big_5.each do |merchant| %>
 <p>Name: <%= merchant.name %> Revenue: <%= number_to_currency(merchant.revenue / 100 ) %></p>
-Top Selling Date: <% %>
+Top Selling Date: <%= merchant.best_date %>
 <% end %>
 
 <h3>Enabled Merchants</h3>

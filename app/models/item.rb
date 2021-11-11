@@ -7,6 +7,15 @@ class Item < ApplicationRecord
   def revenue
     invoice_items.sum(&:item_revenue)
   end
+
+  def best_item_date
+    invoice_items.joins(invoice: :transactions)
+    .where(transactions: {result: 0})
+    .select('invoices.updated_at AS date, max(invoice_items.unit_price * invoice_items.quantity) AS revenue')
+    .group(:date)
+    .order(revenue: :desc)
+    .limit(1)
+    .first
+    .date.strftime('%A, %B %d, %Y')
+  end
 end
-
-
