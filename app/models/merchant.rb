@@ -12,16 +12,19 @@ class Merchant < ApplicationRecord
     .limit(5)
   end
 
+  def ready_to_ship
+    items = InvoiceItem.where("status != 2").order(:created_at).pluck(:item_id)
+    items.map do |id|
+      Item.find(id)
+    end
+  end
+
   def self.enabled?
     where(status: true)
   end
 
   def self.disabled?
     where(status: false)
-  end
-
-  def favorite_customers
-    Customer.joins(invoices: [:transactions, [invoice_items: [item: [:merchant]]]]).select('customers.*, COUNT(transactions.id) as transaction_count').where(transactions: {result: 0}).where(merchants: {id: id}).group(:id).order(transaction_count: :desc).limit(5)
   end
 
   def self.big_5
@@ -31,5 +34,9 @@ class Merchant < ApplicationRecord
     .group(:id)
     .order(revenue: :desc)
     .limit(5)
+  end
+
+  def favorite_customers
+    Customer.joins(invoices: [:transactions, [invoice_items: [item: [:merchant]]]]).select('customers.*, COUNT(transactions.id) as transaction_count').where(transactions: {result: 0}).where(merchants: {id: id}).group(:id).order(transaction_count: :desc).limit(5)
   end
 end
