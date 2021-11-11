@@ -1,7 +1,7 @@
-require './lib/github_service'
+require './app/service/github_service'
 
 RSpec.describe GithubService do
-  it 'returns the repository data' do
+  before :each do
     mock_response =
     '{
       "id": 423605271,
@@ -22,8 +22,8 @@ RSpec.describe GithubService do
         "name": "Lesley Sanders",
         "created_at": "2014-09-29T18:05:53Z",
         "updated_at": "2021-06-07T21:28:42Z"
-      }
-      "collaborator_1": {
+      },
+      "contributer_1": {
         "login": "chazsimons",
         "id": 85699215,
         "node_id": "MDQ6VXNlcjg1Njk5MjE1",
@@ -36,8 +36,8 @@ RSpec.describe GithubService do
         "name": "Chaz Simons",
         "created_at": "2021-06-10T16:51:29Z",
         "updated_at": "2021-09-01T16:45:40Z"
-      }
-      "collaborator_2": {
+      },
+      "contributer_2": {
         "login": "tstaros23",
         "id": 81131454,
         "node_id": "MDQ6VXNlcjgxMTMxNDU0",
@@ -50,8 +50,8 @@ RSpec.describe GithubService do
         "name": "Ted Staros",
         "created_at": "2021-03-22T02:46:59Z",
         "updated_at": "2021-10-14T05:15:56Z"
-      }
-      "collaborator_3": {
+      },
+      "contributer_3": {
         "login": "bfrey08",
         "id": 87046098,
         "node_id": "MDQ6VXNlcjg3MDQ2MDk4",
@@ -69,16 +69,21 @@ RSpec.describe GithubService do
 
     allow_any_instance_of(Faraday::Connection).to receive(:get).and_return(Faraday::Response.new)
     allow_any_instance_of(Faraday::Response).to receive(:body).and_return(mock_response)
+  end
 
-    json = GithubService.user_info('lgsriclas')
+  it 'returns the repository name' do
+    json = GithubService.repo
 
     expect(json).to be_a(Hash)
     expect(json).to have_key(:name)
-    expect(json).to have_key(:login)
-    expect(json).to have_key(:created_at)
-    expect(json).to have_key(:owner[:login])
-    expect(json).to have_key(:collaborator_1[:login])
-    expect(json).to have_key(:collaborator_2[:login])
-    expect(json).to have_key(:collaborator_3[:login])
+  end
+
+  it 'returns the contributers names' do
+    json = GithubService.contributers
+
+    expect(json).to have_key(:owner)
+    expect(json).to have_key(:contributer_1)
+    expect(json).to have_key(:contributer_2)
+    expect(json).to have_key(:contributer_3)
   end
 end
