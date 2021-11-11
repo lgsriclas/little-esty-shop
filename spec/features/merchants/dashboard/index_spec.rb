@@ -1,7 +1,3 @@
-# As a merchant,
-# When I visit my merchant dashboard (/merchant/merchant_id/dashboard)
-# Then I see the name of my merchant
-
 require 'rails_helper'
 
 RSpec.describe 'merchant dashboard page' do
@@ -70,5 +66,15 @@ RSpec.describe 'merchant dashboard page' do
     expect(page).to have_content(@customer_1.first_name)
     expect(page).to have_content(@customer_1.last_name)
     expect(page).to have_content(@merchant_1.favorite_customers.first.transaction_count)
+  end
+
+  it 'shows names of items that are ready to ship' do
+    visit merchant_dashboard_index_path(@merchant_1)
+
+    expect(page).to have_content(@item_7.name)
+    expect(page).to have_content(@item_5.name)
+    expect(page).to have_content(@item_3.name)
+    expect(page).to have_content(@item_1.name)
+    expect(page).to_not have_content(@item_2.name)
   end
 end
