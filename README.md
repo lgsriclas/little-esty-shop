@@ -43,5 +43,3 @@ Our project utilizes the Rails application database to streamline testing. From 
 
 
 ![Database design](./lib/assets/database_design.png)
-
-![Database design](./lib/db.png)
