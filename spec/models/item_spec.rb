@@ -51,7 +51,10 @@ RSpec.describe Item do
 
   describe 'class methods' do
     it 'returns items ready to ship ordered by created at' do
-      expect(Item.ready_to_ship).to eq([@item_7, @item_5, @item_3, @item_1])
+      to_ship = Item.ready_to_ship
+
+      expect(to_ship.first.name).to eq(@item_7.name)
+      expect(to_ship.last.name).to eq(@item_1.name)
     end
   end
 end

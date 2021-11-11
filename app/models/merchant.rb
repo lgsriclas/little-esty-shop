@@ -12,15 +12,6 @@ class Merchant < ApplicationRecord
     .limit(5)
   end
 
-  # def ready_to_ship
-  #   items = items.select(:id).joins(:merchants).where(invoice_items: "status != 2").order(created_at: :desc).pluck(:item_id)
-  #   items = InvoiceItem.joins(item: :merchant).where("invoice_items.status != 2").order(created_at: :desc).pluck(:item_id).pluck
-  #   items = InvoiceItem.where("status != 2").order(created_at: :desc).pluck(:item_id)
-  #   items.map do |id|
-  #     Item.find(id)
-  #   end
-  # end
-
   def self.enabled?
     where(status: true)
   end

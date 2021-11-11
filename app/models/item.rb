@@ -9,7 +9,10 @@ class Item < ApplicationRecord
   end
 
   def self.ready_to_ship
-    joins(:invoices).where("invoice_items.status != 2").order(created_at: :desc)
+    joins(:invoices)
+    .select("items.name, invoices.id as id, invoices.created_at as created_at")
+    .where("invoice_items.status != 2")
+    .order(created_at: :desc)
   end
 end
 

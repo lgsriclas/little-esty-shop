@@ -92,9 +92,5 @@ RSpec.describe Merchant, type: :model do
     it 'returns top 5 customers by transaction count with a specific merchant' do
       expect(@merchant_1.favorite_customers).to eq([@customer_1])
     end
-
-    xit 'returns items ready to ship ordered by created at' do
-      expect(@merchant_1.ready_to_ship).to eq([@item_11, @item_7, @item_1])
-    end
   end
 end
