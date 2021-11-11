@@ -4,6 +4,8 @@
 
 "Little Esty Shop," is a Mod 2 group project at the Turing School of Software and Design, by Ted Staros, Chaz Simons, Billy Frey, and Lesley Sanders. It is modeled after e-commerce platforms where merchants and admins can manage inventory and fulfill customer invoices.
 
+![Database design](./lib/assets/database_design.png)
+
 ## Learning Goals
 - Practice designing a normalized database schema and defining model relationships
 - Utilize advanced routing techniques including namespacing to organize and group like functionality together.
@@ -32,14 +34,3 @@ This project requires Ruby 2.7.2.
 
 ## Testing
 Our project utilizes the Rails application database to streamline testing. From the command-line, run 'rails csv_load:all' to populate the database. Our project uses RSpec as the testing framework.
-
-## Phases
-
-1. [Database Setup](./doc/db_setup.md)
-1. [User Stories](./doc/user_stories.md)
-1. [Extensions](./doc/extensions.md)
-1. [Evaluation](./doc/evaluation.md)
-
-
-
-![Database design](./lib/assets/database_design.png)
