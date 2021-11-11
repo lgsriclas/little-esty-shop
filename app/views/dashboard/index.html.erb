@@ -15,4 +15,5 @@
   <%= item.name %>
   <%= link_to "#{item.invoice_id}", merchant_invoices_path(@merchant, item.invoice_id) %>
   <%= item.created_at.strftime("%m/%d/%Y") %>
+  <br>
 <% end %>
