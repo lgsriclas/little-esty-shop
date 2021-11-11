@@ -71,10 +71,22 @@ RSpec.describe 'merchant dashboard page' do
   it 'shows names of items that are ready to ship' do
     visit merchant_dashboard_index_path(@merchant_1)
 
-    expect(page).to have_content(@item_7.name)
-    expect(page).to have_content(@item_5.name)
-    expect(page).to have_content(@item_3.name)
     expect(page).to have_content(@item_1.name)
+    expect(page).to have_content(@item_3.name)
+    expect(page).to have_content(@item_5.name)
+    expect(page).to have_content(@item_7.name)
     expect(page).to_not have_content(@item_2.name)
+  end
+
+  it 'shows items by created date asc' do
+    visit merchant_dashboard_index_path(@merchant_1)
+
+    expect(@item_1.name).to appear_before(@item_3.name)
+  end
+
+  it 'shows invoice id link for each item' do
+    visit merchant_dashboard_index_path(@merchant_1)
+
+    expect(page).to have_link(@invoice_1.id)
   end
 end
