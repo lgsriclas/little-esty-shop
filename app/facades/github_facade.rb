@@ -1,29 +1,24 @@
 class GithubFacade
-  def create_repos
-    json = GithubService.repo
-    json.map do |data|
-      Repo.new(data)
+  def self.create_repo
+    Rails.cache.fetch('repo', :expires => 1.hour) do
+      json = GithubService.repo
+      Repo.new(json)
     end
   end
 
-  def create_contributers
-    json = GithubService.contributers
-    json.map do |data|
-      Contributers.new(data)
+  def self.create_contributor
+    Rails.cache.fetch('contributor', :expires => 1.hour) do
+      json = GithubService.contributors
+      json.map do |data|
+        Contributor.new(data)
+      end
     end
   end
 
-  def create_commits
-    json = GithubService.commits
-    json.map do |data|
-      Commits.new(data)
-    end
-  end
-
-  def create_pulls
-    json = GithubService.pulls
-    json.map do |data|
-      Pulls.new(data)
+  def self.create_pull
+    Rails.cache.fetch('pull', :expires => 1.hour) do
+      json = GithubService.pulls
+      json.count
     end
   end
 end

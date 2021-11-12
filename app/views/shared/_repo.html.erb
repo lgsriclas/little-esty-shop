@@ -1,0 +1,9 @@
+<footer>
+  Repo Name: <%= @repo.name %><br>
+  Pull Requests: <%= @pulls %><br>
+  <% @contributors.each do |contributor| %>
+    Contributor:<%= contributor.login %>
+    Commits:<%= contributor.commits %>
+    <br>
+  <% end %>
+</footer>

@@ -1,4 +1,4 @@
-class Pulls
+class Pull
   attr_reader :pulls_count
 
   def initialize(data)

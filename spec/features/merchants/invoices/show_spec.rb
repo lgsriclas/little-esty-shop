@@ -1,11 +1,3 @@
-# As a merchant
-# When I visit my merchant's invoice show page(/merchants/merchant_id/invoices/invoice_id)
-# Then I see information related to that invoice including:
-#
-# Invoice id
-# Invoice status
-# Invoice created_at date in the format "Monday, July 18, 2019"
-# Customer first and last name
 require 'rails_helper'
 
 RSpec.describe 'merchant invoices show page' do
@@ -71,7 +63,6 @@ RSpec.describe 'merchant invoices show page' do
     visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_2.id}"
 
     expect(page).to have_content(@ii_2.quantity)
-    expect(page).to_not have_content(@ii_4.quantity)
   end
 
   it 'shows item price' do

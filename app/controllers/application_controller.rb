@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
+  before_action :api_call
   def api_call
     @repo = GithubFacade.create_repo
-    @contributers = GithubFacade.create_contributers
-    @commits = GithubFacade.create_commits
+    @contributors = GithubFacade.create_contributor
+    @pulls = GithubFacade.create_pull
   end
 end

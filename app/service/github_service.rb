@@ -1,22 +1,20 @@
 class GithubService
   def self.repo
-    get_url("little-esty-shop")
+    response = get_url('https://api.github.com/repos/lgsriclas/').get("little-esty-shop")
+    JSON.parse(response.body, symbolize_names: true)
   end
 
-  def self.contributers
-    get_url("little_esty_shop/contributers")
-  end
-
-  def self.commits
-    get_url("little_esty_shop/commits")
+  def self.contributors
+    response = get_url('https://api.github.com/repos/lgsriclas/').get("little-esty-shop/contributors")
+    JSON.parse(response.body, symbolize_names: true)
   end
 
   def self.pulls
-    get url("little_esty_shop/pulls")
+    response = get_url('https://api.github.com/repos/lgsriclas/').get("little-esty-shop/pulls?state=closed")
+    JSON.parse(response.body, symbolize_names: true)
   end
 
   def self.get_url(url)
-    response = Faraday.get("api.github.com/repos/lgsriclas/#{url}")
-    JSON.parse(response.body, symbolize_names: true)
+    Faraday.new(url)
   end
 end
