@@ -81,7 +81,7 @@ RSpec.describe 'merchant invoices show page' do
   it 'shows total revenue for invoice' do
     visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
 
-    expect(page).to have_content("Total Revenue Generated: $#{@ii_1.item_revenue}")
+    expect(page).to have_content(@ii_1.item_revenue)
   end
 
   it 'allows user to update item status' do

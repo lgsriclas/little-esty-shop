@@ -17,9 +17,7 @@ class AdminInvoicesController < ApplicationController
     redirect_to "/admin/invoices/#{invoice.id}"
   end
 
-
   private
-
     def invoice_params
       params.permit(:status, :name, :updated_at)
     end

@@ -1,4 +1,4 @@
-<h1><%= @invoice.id %>/h1>
+<h1><%= @invoice.id %></h1>
 <h3>Status: </h3><%= @invoice.status %>
 
 <h3>Customer: </h3>
@@ -8,12 +8,12 @@
 <h3>Created At: </h3><%= @invoice.created_at.strftime('%A, %B %d, %Y') %>
 
 <h3>Items: </h3><%= @item.name %>
-<p>Quantity: </p><%= @invoice_items.quantity %>
-<p>Unit Price: </p><%= @item.unit_price %>
-<p>Status: </p>
+<p>Quantity: <%= @invoice_items.quantity %> </p>
+<p>Unit Price: <%= @item.unit_price %> </p>
+<p>Status:
   <%= form_with url: merchant_invoice_path(@merchant, @invoice), method: :patch, local: true do |f| %>
   <%= f.select :status, ['packaged', 'pending', 'shipped'], selected: @invoice_items.status %>
   <%= f.submit 'Update Item Status' %>
-  <% end %>
+  <% end %> </p>
 
-Total Revenue Generated: $<%= @invoice_items.item_revenue %>
+<h3> Total Revenue Generated: </h3> $<%= @invoice_items.item_revenue %>

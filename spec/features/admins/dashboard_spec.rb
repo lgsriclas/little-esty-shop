@@ -54,7 +54,6 @@ RSpec.describe 'dashboard' do
     expect(page).to have_content(@customer_1.first_name)
     expect(page).to have_content(@customer_1.last_name)
     expect(page).to have_content(@customer_1.number_of_transactions)
-
   end
 
   it 'has an incomplete invoices section ordered by date w/ date created shown' do

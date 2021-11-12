@@ -49,5 +49,4 @@ RSpec.describe 'Merchant Item Update page' do
     expect(current_path).to eq(merchant_item_path(@merchant_1, @item_1))
     expect(page).to have_content("Han Solo Ladle")
   end
-
 end

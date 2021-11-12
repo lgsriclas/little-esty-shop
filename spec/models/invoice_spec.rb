@@ -36,12 +36,14 @@ RSpec.describe Invoice, type: :model do
     @transaction_6 = Transaction.create!(credit_card_number: "5235 2374 3233 2322", credit_card_expiration_date: "2023-03-23", result: 0, invoice_id: @invoice_2.id)
     @transaction_7 = Transaction.create!(credit_card_number: "5233 2322 3211 2300", credit_card_expiration_date: "2021-12-23", result: 1, invoice_id: @invoice_2.id)
   end
+
   describe 'relationships' do
     it {should belong_to :customer}
     it {should have_many(:items).through(:invoice_items)}
     it {should have_many :invoice_items}
     it {should have_many :transactions}
   end
+  
   it 'can order_incomplete_invoices and return a nested array [[id1, created_at1], [id2, created_at2]]' do
     expect(Invoice.ordered_incomplete_invoices).to eq([[@invoice_1.id, @invoice_1.created_at], [@invoice_2.id, @invoice_2.created_at]])
   end
