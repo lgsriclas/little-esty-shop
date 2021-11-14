@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2021-11-12T13:44:53-05:00">2021-11-12T13:44:53-05:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2021-11-14T11:42:43-05:00">2021-11-14T11:42:43-05:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -23,14 +23,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="green">
-  98.02%
+  98.03%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         3.46
+         3.67
        </span>
     </span> hits/line
     )
@@ -39,15 +39,15 @@
   <a name="AllFiles"></a>
 
   <div>
-    <b>40</b> files in total.
+    <b>41</b> files in total.
   </div>
 
   <div class="t-line-summary">
-    <b>1008</b> relevant lines,
-    <span class="green"><b>988</b> lines covered</span> and
+    <b>1014</b> relevant lines,
+    <span class="green"><b>994</b> lines covered</span> and
     <span class="red"><b>20</b> lines missed. </span>
     (<span class="green">
-  98.02%
+  98.03%
 </span>
 )
   </div>
@@ -287,6 +287,17 @@
             <td class="cell--number">3</td>
             <td class="cell--number">1</td>
             <td class="cell--number">0.75</td>
+            
+          </tr>
+        
+          <tr class="t-file">
+            <td class="strong t-file__name"><a href="#298cf4d46d79f54afd4b24c2ba48b9ff6dea2ec0" class="src_link" title="app/service/holiday_service.rb">app/service/holiday_service.rb</a></td>
+            <td class="green strong cell--number t-file__coverage">100.00 %</td>
+            <td class="cell--number">10</td>
+            <td class="cell--number">6</td>
+            <td class="cell--number">6</td>
+            <td class="cell--number">0</td>
+            <td class="cell--number">39.00</td>
             
           </tr>
         
@@ -5280,6 +5291,147 @@
       
         <div>
           <li class="never" data-hits="" data-linenumber="7">
+            
+            
+
+            
+
+            <code class="ruby">end</code>
+          </li>
+        </div>
+      
+    </ol>
+  </pre>
+</div>
+
+      
+        <div class="source_table" id="298cf4d46d79f54afd4b24c2ba48b9ff6dea2ec0">
+  <div class="header">
+    <h3>app/service/holiday_service.rb</h3>
+    <h4>
+      <span class="green">
+  100.0%
+</span>
+
+      lines covered
+    </h4>
+
+    
+
+    <div class="t-line-summary">
+      <b>6</b> relevant lines.
+      <span class="green"><b>6</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+    </div>
+
+    
+
+  </div>
+
+  <pre>
+    <ol>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="1">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">class HolidayService</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="2">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def self.holiday</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="77" data-linenumber="3">
+            <span class="hits">77</span>
+            
+
+            
+
+            <code class="ruby">    response = get_url(&#39;https://date.nager.at/&#39;).get(&#39;api/v2/NextPublicHolidays/us&#39;)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="77" data-linenumber="4">
+            <span class="hits">77</span>
+            
+
+            
+
+            <code class="ruby">    JSON.parse(response.body, symbolize_names: true)[0..2]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="5">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="6">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="7">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def self.get_url(url)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="77" data-linenumber="8">
+            <span class="hits">77</span>
+            
+
+            
+
+            <code class="ruby">    Faraday.new(url)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="9">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="10">
             
             
 
