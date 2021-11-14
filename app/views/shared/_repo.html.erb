@@ -6,8 +6,9 @@
     Commits:<%= contributor.commits %>
     <br>
   <% end %>
-  Next Three Holidays:
-  <% @holidays.each do |holiday| %>
-    <%= holiday.three %>
+  <br>
+  <h4>Next Three Holidays: </h4>
+  <% HolidayService.holiday.each do |h| %>
+    <%= h[:name] %>,
   <% end %>
 </footer>

@@ -1,11 +1,7 @@
 class Holiday
-  attr_reader :holidays
+  attr_reader :name
 
-  def initialize(data)
-    @three = data[:holidays]
-  end
-
-  def upcoming_holidays(code)
-    @three.next_holidays(country_code[0..2])
+  def initialize
+    @name = HolidayService.holiday
   end
 end
