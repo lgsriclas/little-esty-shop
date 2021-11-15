@@ -36,6 +36,7 @@ RSpec.describe 'merchant dashboard page' do
     @transaction_6 = Transaction.create!(credit_card_number: "5235 2374 3233 2322", credit_card_expiration_date: "2023-03-23", result: 0, invoice_id: @invoice_2.id)
     @transaction_7 = Transaction.create!(credit_card_number: "5233 2322 3211 2300", credit_card_expiration_date: "2021-12-23", result: 1, invoice_id: @invoice_2.id)
   end
+
   it 'shows the name of my merchant' do
     merchant1 = Merchant.create!(name: "Larry's Lucky Ladles")
 
@@ -88,5 +89,13 @@ RSpec.describe 'merchant dashboard page' do
     visit merchant_dashboard_index_path(@merchant_1)
 
     expect(page).to have_link(@invoice_1.id)
+  end
+
+  describe 'bulk discounts' do
+    it 'has a link to view all discounts' do
+      visit merchant_dashboard_index_path(@merchant_1)
+
+      expect(page).to have_link('Discounts')
+    end
   end
 end

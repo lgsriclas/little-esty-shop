@@ -22,5 +22,6 @@ Rails.application.routes.draw do
     resources :items, except: [:destroy], controller: :merchant_items
     resources :item_status, only: [:update]
     resources :invoices, only: [:index, :show, :update], controller: :merchant_invoices
+    resources :bulk_discounts, only: [:index]
   end
 end
