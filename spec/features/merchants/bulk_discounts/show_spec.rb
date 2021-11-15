@@ -62,4 +62,17 @@ RSpec.describe 'bulk discounts show page' do
 
     expect(current_path).to eq("/merchants/#{@merchant_1.id}/bulk_discounts/#{@bd_1.id}/edit")
   end
+
+  it 'redirects to the show page after updating discount information' do
+    visit merchant_bulk_discount_path(@merchant_1, @bd_1)
+
+    click_link("Update Discount Information")
+    fill_in :quantity_threshold, with: 8
+    fill_in :percent_discount, with: 25
+    click_button "Submit Changes"
+
+    expect(current_path).to eq(merchant_bulk_discount_path(@merchant_1, @bd_1))
+    expect(page).to have_content("Quantity Threshold: 8,")
+    expect(page).to have_content("Discount: 25%")
+  end
 end

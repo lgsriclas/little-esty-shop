@@ -41,7 +41,7 @@ RSpec.describe 'Merchant Bulk Discount Update page' do
     @bd_2 = BulkDiscount.create!(quantity_threshold: 15, percent_discount: 30, merchant_id: @merchant_2.id)
   end
 
-  it 'returns a user to the show page after updating item information' do
+  it 'returns a user to the show page after updating discount information' do
     visit merchant_bulk_discount_path(@merchant_2, @bd_2)
 
     click_link("Update Discount Information")
