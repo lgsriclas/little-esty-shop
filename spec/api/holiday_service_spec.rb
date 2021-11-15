@@ -1,22 +1,24 @@
 require './app/service/holiday_service'
+require 'rails_helper'
 
-RSpec.describe GithubService do
+RSpec.describe HolidayService do
   before :each do
-    mock_response = '{
+    mock_response =
+    '{
       "holiday_1": {
-      "date": "2021-11-25",
-      "name": "Thanksgiving Day",
-      "countryCode": "US"
+        "date": "2021-11-25",
+        "name": "Thanksgiving Day",
+        "countryCode": "US"
       },
       "holiday_2": {
-      "date": "2021-12-24",
-      "name": "Christmas Day",
-      "countryCode": "US"
+        "date": "2021-12-24",
+        "name": "Christmas Day",
+        "countryCode": "US"
       },
       "holiday_3": {
-      "date": "2021-12-31",
-      "name": "New Years Day",
-      "countryCode": "US"
+        "date": "2021-12-31",
+        "name": "New Years Day",
+        "countryCode": "US"
       }
     }'
 
@@ -27,6 +29,6 @@ RSpec.describe GithubService do
   it 'returns the next three US holidays' do
     json = HolidayService.holiday
 
-    expect(json[:holiday_1][:name]).to eq('Thanksgiving Day')
+    expect(json[:holiday_2][:name]).to eq('Christmas Day')
   end
 end
