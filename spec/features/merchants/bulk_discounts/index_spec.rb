@@ -39,7 +39,6 @@ RSpec.describe 'bulk discounts index page' do
 
     @bd_1 = BulkDiscount.create!(quantity_threshold: 10, percent_discount: 20, merchant_id: @merchant_1.id)
     @bd_2 = BulkDiscount.create!(quantity_threshold: 15, percent_discount: 30, merchant_id: @merchant_2.id)
-
   end
 
   it 'has links for all bulk discount show pages' do
