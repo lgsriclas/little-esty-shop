@@ -38,6 +38,9 @@ RSpec.describe Invoice, type: :model do
     @transaction_5 = Transaction.create!(credit_card_number: "5773 4374 4373 2622", credit_card_expiration_date: "2027-11-24", result: 0, invoice_id: @invoice_2.id)
     @transaction_6 = Transaction.create!(credit_card_number: "5235 2374 3233 2322", credit_card_expiration_date: "2023-03-23", result: 0, invoice_id: @invoice_2.id)
     @transaction_7 = Transaction.create!(credit_card_number: "5233 2322 3211 2300", credit_card_expiration_date: "2021-12-23", result: 1, invoice_id: @invoice_2.id)
+
+    @bd_1 = BulkDiscount.create!(quantity_threshold: 10, percent_discount: 20, merchant_id: @merchant_1.id)
+    @bd_2 = BulkDiscount.create!(quantity_threshold: 15, percent_discount: 30, merchant_id: @merchant_2.id)
   end
 
   describe 'relationships' do
@@ -47,8 +50,19 @@ RSpec.describe Invoice, type: :model do
     it {should have_many :transactions}
   end
 
-  it 'can order_incomplete_invoices and return a nested array [[id1, created_at1], [id2, created_at2]]' do
-    expect(Invoice.ordered_incomplete_invoices).to eq([[@invoice_1.id, @invoice_1.created_at], [@invoice_2.id, @invoice_2.created_at]])
+  describe 'class methods' do
+    it 'can return successful transactions' do
+      expect(@invoice_1.successful_transactions).to eq([@transaction_1, @transaction_2, @transaction_3])
+    end
+
+    xit 'can return top selling by date' do
+    end
+  end
+
+  describe 'instance methods' do
+    it 'can order_incomplete_invoices and return a nested array [[id1, created_at1], [id2, created_at2]]' do
+      expect(Invoice.ordered_incomplete_invoices).to eq([[@invoice_1.id, @invoice_1.created_at], [@invoice_2.id, @invoice_2.created_at]])
+    end
   end
 
   describe 'bulk discounts' do
