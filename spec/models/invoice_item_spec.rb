@@ -72,6 +72,7 @@ RSpec.describe InvoiceItem, type: :model do
       expect(@ii_4.revenue).to eq(85)
       expect(@ii_6.revenue).to eq(100)
       expect(@ii_8.revenue).to eq(40.0)
+      expect(@ii_9.revenue).to eq(56.0)
     end
   end
 end
