@@ -1,0 +1,9 @@
+<h1>Create New Discount</h1>
+
+<%= form_with url: merchant_bulk_discounts_path(@merchant, @bulk_discount), method: :post, local: true do |f| %>
+  <%= f.label :quantity_threshold %>
+  <%= f.text_field :quantity_threshold %><br/><br/>
+  <%= f.label :percent_discount %>
+  <%= f.text_field :percent_discount%><br/><br/>
+  <%= f.submit 'Create Discount' %>
+<% end %>

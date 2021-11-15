@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'bulk discounts index page' do
   before :each do
     @merchant_1 = Merchant.create!(name: "Larry's Lucky Ladles")
+    @merchant_2 = Merchant.create!(name: "Sally's Silly Spoons")
 
     @item_1 = Item.create!(name: "Star Wars Ladle", description: "May the soup be with you", unit_price: 10, merchant_id: @merchant_1.id)
     @item_2 = Item.create!(name: "Sparkle Ladle", description: "Serve in style", unit_price: 12, merchant_id: @merchant_1.id)
@@ -37,14 +38,17 @@ RSpec.describe 'bulk discounts index page' do
     @transaction_7 = Transaction.create!(credit_card_number: "5233 2322 3211 2300", credit_card_expiration_date: "2021-12-23", result: 1, invoice_id: @invoice_2.id)
 
     @bd_1 = BulkDiscount.create!(quantity_threshold: 10, percent_discount: 20, merchant_id: @merchant_1.id)
+    @bd_2 = BulkDiscount.create!(quantity_threshold: 15, percent_discount: 30, merchant_id: @merchant_2.id)
+
   end
 
   it 'has links for all bulk discount show pages' do
     visit merchant_bulk_discounts_path(@merchant_1)
 
-    expect(page).to have_link(@bd_1.percent_discount)
+    expect(page).to have_link(@bd_1.id)
+    expect(page).to_not have_link(@bd_2.id)
 
-    click_link "#{@bd_1.percent_discount}"
+    click_link "#{@bd_1.id}"
 
     expect(current_path).to eq(merchant_bulk_discounts_path(@merchant_1, @bd_1))
   end
@@ -53,5 +57,27 @@ RSpec.describe 'bulk discounts index page' do
     visit merchant_bulk_discounts_path(@merchant_1)
 
     expect(page).to have_content(@bd_1.quantity_threshold)
+    expect(page).to_not have_content(@bd_2.quantity_threshold)
+  end
+
+  it 'has a link to create a new discount' do
+    visit merchant_bulk_discounts_path(@merchant_2)
+
+    expect(page).to have_link("Create New Discount")
+  end
+
+  it 'redirects to bulk discount index after creating a new discount' do
+    visit merchant_bulk_discounts_path(@merchant_2)
+
+    click_link "Create New Discount"
+
+    expect(current_path).to eq(new_merchant_bulk_discount_path(@merchant_2))
+
+    fill_in :quantity_threshold, with: '12'
+    fill_in :percent_discount, with: '25'
+    click_on 'Create Discount'
+
+    expect(current_path).to eq(merchant_bulk_discounts_path(@merchant_2))
+    expect(page).to have_content(12)
   end
 end
