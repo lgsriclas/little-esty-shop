@@ -40,7 +40,7 @@ RSpec.describe Invoice, type: :model do
     @transaction_7 = Transaction.create!(credit_card_number: "5233 2322 3211 2300", credit_card_expiration_date: "2021-12-23", result: 1, invoice_id: @invoice_2.id)
 
     @bd_1 = BulkDiscount.create!(quantity_threshold: 10, percent_discount: 20, merchant_id: @merchant_1.id)
-    @bd_2 = BulkDiscount.create!(quantity_threshold: 15, percent_discount: 30, merchant_id: @merchant_2.id)
+    @bd_2 = BulkDiscount.create!(quantity_threshold: 15, percent_discount: 30, merchant_id: @merchant_1.id)
   end
 
   describe 'relationships' do
@@ -68,6 +68,11 @@ RSpec.describe Invoice, type: :model do
   describe 'bulk discounts' do
     it 'can calculate total revenue for a merchant' do
       expect(@invoice_5.total_revenue).to eq(75)
+      expect(@invoice_1.total_revenue).to eq(280)
+    end
+
+    it 'can calculate total discounted revenue for a merchant' do
+      expect(@invoice_5.discounted_revenue).to eq(65)
     end
   end
 end

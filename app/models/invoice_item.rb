@@ -1,11 +1,31 @@
 class InvoiceItem < ApplicationRecord
   belongs_to :item
   belongs_to :invoice
-  has_many :discounts, through: :merchant
+  has_one :merchant, through: :item
+  has_many :bulk_discounts, through: :merchant
   enum status: [:packaged, :pending, :shipped]
 
   def item_revenue
     quantity * unit_price
+  end
+
+  def discount
+    bulk_discounts
+    .order(percent_discount: :desc)
+    .where('quantity_threshold <= ?', "#{self.quantity}").first
+
+    # joins(merchant: :bulk_discounts)
+    # .select("bulk_discounts.percent_discount AS percent")
+    # .order(percent: :desc)
+    # .where('quantity_threshold <= ?', "#{self.quantity}").first
+  end
+
+  def revenue
+    if discount == nil
+      unit_price * quantity
+    else
+      unit_price * quantity * (1 - (discount.percent_discount.to_f / 100))
+    end
   end
 
   def self.item_revenue

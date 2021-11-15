@@ -24,8 +24,16 @@ class Invoice < ApplicationRecord
     invoice_items.sum("unit_price * quantity")
   end
 
+  def discounted_revenue
+    invoice_items.sum do |ii|
+      ii.revenue
+    end
+  end
+
   def self.ordered_incomplete_invoices
     incomplete_invoices_ids = InvoiceItem.incomplete_invoices
-    Invoice.where(id: incomplete_invoices_ids).order(created_at: :asc).pluck(:id, :created_at)
+    Invoice.where(id: incomplete_invoices_ids)
+    .order(created_at: :asc)
+    .pluck(:id, :created_at)
   end
 end
