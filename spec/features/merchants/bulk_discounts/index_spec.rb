@@ -43,6 +43,10 @@ RSpec.describe 'bulk discounts index page' do
     visit merchant_bulk_discounts_path(@merchant_1)
 
     expect(page).to have_link(@bd_1.percent_discount)
+
+    click_link "#{@bd_1.percent_discount}"
+
+    expect(current_path).to eq(merchant_bulk_discounts_path(@merchant_1, @bd_1))
   end
 
   it 'shows quantity thresholds for each bulk discount' do
