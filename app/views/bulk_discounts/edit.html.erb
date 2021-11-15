@@ -1,0 +1,10 @@
+<h2>Update Discount Information</h2>
+
+<%= form_with url: merchant_bulk_discount_path(@merchant, @bulk_discount), method: :patch, local: true do |f| %>
+<%= f.hidden_field :bulk_discount_update %>
+<%= f.label :quantity_threshold %>
+<%= f.text_field :quantity_threshold, value:@bulk_discount.quantity_threshold %>
+<%= f.label :percent_discount %>
+<%= f.text_field :percent_discount, value:@bulk_discount.percent_discount %>
+<%= f.submit "Submit Changes" %>
+<% end %>

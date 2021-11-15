@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'bulk discounts show page' do
+RSpec.describe 'Merchant Bulk Discount Update page' do
   before :each do
     @merchant_1 = Merchant.create!(name: "Larry's Lucky Ladles")
     @merchant_2 = Merchant.create!(name: "Sally's Silly Spoons")
@@ -41,38 +41,16 @@ RSpec.describe 'bulk discounts show page' do
     @bd_2 = BulkDiscount.create!(quantity_threshold: 15, percent_discount: 30, merchant_id: @merchant_2.id)
   end
 
-  it 'shows the bulk discount quantity threshold' do
-    visit merchant_bulk_discounts_path(@merchant_1)
-
-    expect(page).to have_content(@bd_1.quantity_threshold)
-  end
-
-  it 'shows the bulk discount percent discount' do
-    visit merchant_bulk_discounts_path(@merchant_2)
-
-    expect(page).to have_content(@bd_2.percent_discount)
-  end
-
-  it 'has a link to a form to update bulk discount information' do
-    visit merchant_bulk_discount_path(@merchant_1, @bd_1)
-
-    expect(page).to have_link("Update Discount Information")
+  it 'returns a user to the show page after updating discount information' do
+    visit merchant_bulk_discount_path(@merchant_2, @bd_2)
 
     click_link("Update Discount Information")
-
-    expect(current_path).to eq("/merchants/#{@merchant_1.id}/bulk_discounts/#{@bd_1.id}/edit")
-  end
-
-  it 'redirects to the show page after updating discount information' do
-    visit merchant_bulk_discount_path(@merchant_1, @bd_1)
-
-    click_link("Update Discount Information")
-    fill_in :quantity_threshold, with: 8
-    fill_in :percent_discount, with: 25
+    fill_in :quantity_threshold, with: 20
+    fill_in :percent_discount, with: 50
     click_button "Submit Changes"
 
-    expect(current_path).to eq(merchant_bulk_discount_path(@merchant_1, @bd_1))
-    expect(page).to have_content("Quantity Threshold: 8,")
-    expect(page).to have_content("Discount: 25%")
+    expect(current_path).to eq(merchant_bulk_discount_path(@merchant_2, @bd_2))
+    expect(page).to have_content("Quantity Threshold: 20,")
+    expect(page).to have_content("Discount: 50%")
   end
 end
