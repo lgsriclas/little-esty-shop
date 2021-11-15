@@ -11,8 +11,8 @@ class InvoiceItem < ApplicationRecord
 
   def discount
     bulk_discounts
-    .order(percent_discount: :desc)
-    .where('quantity_threshold <= ?', "#{self.quantity}").first
+    .where('quantity_threshold <= ?', "#{self.quantity}")
+    .order(percent_discount: :desc).first
 
     # joins(merchant: :bulk_discounts)
     # .select("bulk_discounts.percent_discount AS percent")
