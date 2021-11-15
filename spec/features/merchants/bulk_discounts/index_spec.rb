@@ -39,7 +39,6 @@ RSpec.describe 'bulk discounts index page' do
 
     @bd_1 = BulkDiscount.create!(quantity_threshold: 10, percent_discount: 20, merchant_id: @merchant_1.id)
     @bd_2 = BulkDiscount.create!(quantity_threshold: 15, percent_discount: 30, merchant_id: @merchant_2.id)
-
   end
 
   it 'has links for all bulk discount show pages' do
@@ -79,5 +78,22 @@ RSpec.describe 'bulk discounts index page' do
 
     expect(current_path).to eq(merchant_bulk_discounts_path(@merchant_2))
     expect(page).to have_content(12)
+  end
+
+  it 'has a button to delete each bulk discount' do
+    visit merchant_bulk_discounts_path(@merchant_2)
+
+    expect(page).to have_button("Delete Discount")
+  end
+
+  it 'redirects to bulk discount index after deleting a discount' do
+    visit merchant_bulk_discounts_path(@merchant_1)
+
+    within("#bd-#{@bd_1.id}") do
+      click_button "Delete Discount #{@bd_1.id}"
+    end
+
+    expect(current_path).to eq(merchant_bulk_discounts_path(@merchant_1))
+    expect(page).to_not have_content(@bd_1.id)
   end
 end
