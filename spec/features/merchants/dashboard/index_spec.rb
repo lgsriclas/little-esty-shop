@@ -35,6 +35,8 @@ RSpec.describe 'merchant dashboard page' do
     @transaction_5 = Transaction.create!(credit_card_number: "5773 4374 4373 2622", credit_card_expiration_date: "2027-11-24", result: 0, invoice_id: @invoice_2.id)
     @transaction_6 = Transaction.create!(credit_card_number: "5235 2374 3233 2322", credit_card_expiration_date: "2023-03-23", result: 0, invoice_id: @invoice_2.id)
     @transaction_7 = Transaction.create!(credit_card_number: "5233 2322 3211 2300", credit_card_expiration_date: "2021-12-23", result: 1, invoice_id: @invoice_2.id)
+
+    @bd_1 = BulkDiscount.create!(quantity_threshold: 10, percent_discount: 20, merchant_id: @merchant_1.id)
   end
 
   it 'shows the name of my merchant' do
@@ -96,6 +98,10 @@ RSpec.describe 'merchant dashboard page' do
       visit merchant_dashboard_index_path(@merchant_1)
 
       expect(page).to have_link('Discounts')
+
+      click_link 'Discounts'
+
+      expect(current_path).to eq(merchant_bulk_discounts_path(@merchant_1))
     end
   end
 end
