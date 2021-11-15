@@ -23,6 +23,6 @@ RSpec.describe 'create new bulk discount page' do
     click_on 'Create Discount'
 
     expect(current_path).to eq(merchant_bulk_discounts_path(@merchant_1))
-    expect(page).to have_content("12")
+    expect(page).to have_content(12)
   end
 end
