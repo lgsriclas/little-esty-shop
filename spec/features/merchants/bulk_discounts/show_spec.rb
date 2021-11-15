@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'bulk discounts index page' do
+RSpec.describe 'bulk discounts show page' do
   before :each do
     @merchant_1 = Merchant.create!(name: "Larry's Lucky Ladles")
     @merchant_2 = Merchant.create!(name: "Sally's Silly Spoons")
@@ -41,59 +41,15 @@ RSpec.describe 'bulk discounts index page' do
     @bd_2 = BulkDiscount.create!(quantity_threshold: 15, percent_discount: 30, merchant_id: @merchant_2.id)
   end
 
-  it 'has links for all bulk discount show pages' do
-    visit merchant_bulk_discounts_path(@merchant_1)
-
-    expect(page).to have_link(@bd_1.id)
-    expect(page).to_not have_link(@bd_2.id)
-
-    click_link "#{@bd_1.id}"
-
-    expect(current_path).to eq("/merchants/#{@merchant_1.id}/bulk_discounts/#{@bd_1.id}")
-  end
-
-  it 'shows quantity thresholds for each bulk discount' do
+  it 'shows the bulk discount quantity threshold' do
     visit merchant_bulk_discounts_path(@merchant_1)
 
     expect(page).to have_content(@bd_1.quantity_threshold)
-    expect(page).to_not have_content(@bd_2.quantity_threshold)
   end
 
-  it 'has a link to create a new discount' do
+  it 'shows the bulk discount percent discount' do
     visit merchant_bulk_discounts_path(@merchant_2)
 
-    expect(page).to have_link("Create New Discount")
-  end
-
-  it 'redirects to bulk discount index after creating a new discount' do
-    visit merchant_bulk_discounts_path(@merchant_2)
-
-    click_link "Create New Discount"
-
-    expect(current_path).to eq(new_merchant_bulk_discount_path(@merchant_2))
-
-    fill_in :quantity_threshold, with: '12'
-    fill_in :percent_discount, with: '25'
-    click_on 'Create Discount'
-
-    expect(current_path).to eq(merchant_bulk_discounts_path(@merchant_2))
-    expect(page).to have_content(12)
-  end
-
-  it 'has a button to delete each bulk discount' do
-    visit merchant_bulk_discounts_path(@merchant_2)
-
-    expect(page).to have_button("Delete Discount")
-  end
-
-  it 'redirects to bulk discount index after deleting a discount' do
-    visit merchant_bulk_discounts_path(@merchant_1)
-
-    within("#bd-#{@bd_1.id}") do
-      click_button "Delete Discount #{@bd_1.id}"
-    end
-
-    expect(current_path).to eq(merchant_bulk_discounts_path(@merchant_1))
-    expect(page).to_not have_content(@bd_1.id)
+    expect(page).to have_content(@bd_2.percent_discount)
   end
 end
