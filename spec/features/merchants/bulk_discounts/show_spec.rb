@@ -45,6 +45,5 @@ RSpec.describe 'bulk discounts show page' do
     visit merchant_bulk_discounts_path(@merchant_1)
 
     expect(page).to have_content(@bd_1.quantity_threshold)
-    expect(page).to_not have_content(@bd_2.quantity_threshold)
   end
 end
