@@ -12,14 +12,6 @@ class Invoice < ApplicationRecord
     transactions.success
   end
 
-  def top_selling_by_date
-    joins(invoices: :invoice_items)
-    .select("invoices.created_at AS date, sum(invoice_items.quantity * invoice_items.unit_price) AS revenue_by_day")
-    .group(:date)
-    .order(:revenue)
-    .first.date.strftime('%A, %B %d, %Y')
-  end
-
   def total_revenue
     invoice_items.sum("unit_price * quantity")
   end

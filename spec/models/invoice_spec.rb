@@ -54,9 +54,6 @@ RSpec.describe Invoice, type: :model do
     it 'can return successful transactions' do
       expect(@invoice_1.successful_transactions).to eq([@transaction_1, @transaction_2, @transaction_3])
     end
-
-    xit 'can return top selling by date' do
-    end
   end
 
   describe 'instance methods' do

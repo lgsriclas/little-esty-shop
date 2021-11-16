@@ -58,20 +58,6 @@ RSpec.describe Merchant, type: :model do
   end
 
   describe 'class methods' do
-    it 'returns the top five items by revenue' do
-      results = @merchant_1.top_5.map do |merchant|
-        merchant.name
-      end
-      expect(results).to eq([@item_1.name, @item_8.name, @item_9.name, @item_10.name, @item_11.name])
-    end
-
-    it 'returns the top 5 merchants based on revenue' do
-      results = Merchant.big_5.map do |merchant|
-        merchant.name
-      end
-      expect(results).to eq([@merchant_1.name, @merchant_6.name, @merchant_4.name, @merchant_3.name, @merchant_5.name])
-    end
-
     it 'can test for enabled merchants' do
       enabled = Merchant.enabled?
 
@@ -84,14 +70,32 @@ RSpec.describe Merchant, type: :model do
       expect(disabled).to eq(@merchant_3)
     end
 
-    it 'returns the top five item names by revenue' do
-      expect(@merchant_1.top_5).to eq([@item_1, @item_8, @item_9, @item_10, @item_11])
+    it 'returns the big 5 merchants based on revenue' do
+      results = Merchant.big_5.map do |merchant|
+        merchant.name
+      end
+      expect(results).to eq([@merchant_1.name, @merchant_6.name, @merchant_4.name, @merchant_3.name, @merchant_5.name])
     end
   end
 
   describe 'instance methods' do
-    it 'returns top 5 customers by transaction count with a specific merchant' do
+    it 'returns the top five items by revenue' do
+      results = @merchant_1.top_5.map do |merchant|
+        merchant.name
+      end
+      expect(results).to eq([@item_1.name, @item_8.name, @item_9.name, @item_10.name, @item_11.name])
+    end
+
+    it 'returns top 5 favorite customers by transaction count with a specific merchant' do
       expect(@merchant_1.favorite_customers).to eq([@customer_1])
+    end
+
+    it 'returns the top five item names by revenue' do
+      expect(@merchant_1.top_5).to eq([@item_1, @item_8, @item_9, @item_10, @item_11])
+    end
+
+    it 'returns the best date for a merchant' do
+      expect(@merchant_1.best_date).to eq(Date.current.strftime('%A, %B %d, %Y'))
     end
   end
 end

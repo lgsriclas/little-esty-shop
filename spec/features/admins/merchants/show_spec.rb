@@ -20,4 +20,14 @@ RSpec.describe 'Admin Merchant Show Page' do
 
     expect(current_path).to eq("/admin/merchants/#{@merchant_1.id}/edit")
   end
+
+  it 'redirects to admin merchant show page is update is successful' do
+    visit "/admin/merchants/#{@merchant_1.id}"
+
+    click_link("Update Merchant Information")
+    fill_in :name, with: 'Bob'
+    click_on 'Submit Changes'
+
+    expect(current_path).to eq("/admin/merchants/#{@merchant_1.id}")
+  end
 end
