@@ -120,6 +120,5 @@ RSpec.describe 'merchant invoices show page' do
 
       expect(page).to have_content("Total Revenue After Discounts: $80.0")
     end
-
   end
 end

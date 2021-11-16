@@ -15,4 +15,5 @@
 <p>Price Sold For: <%= @item.unit_price %></p>
 <p>Invoice Item Status: <%= @invoice_items.status %></p>
 
-Total Revenue Generated: $<%= @invoice_items.item_revenue %>
+<h4> Total Revenue: $<%= @invoice.total_revenue %></h4>
+<h4> Total Revenue After Discounts: $<%= @invoice.discounted_revenue %></h4>
