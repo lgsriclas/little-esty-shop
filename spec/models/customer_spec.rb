@@ -41,7 +41,7 @@ RSpec.describe Customer, type: :model do
     it {should have_many :invoices}
     it {should have_many :invoices}
   end
-  
+
   it 'can calculate number of transactions' do
     expect(@customer_1.number_of_transactions).to eq(6)
     expect(@customer_2.number_of_transactions).to eq(0)
