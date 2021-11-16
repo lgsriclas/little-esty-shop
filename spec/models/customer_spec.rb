@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Customer, type: :model do
-  before :each do
+  before :each do |x|
+    unless x.metadata[:skip_before]
     @merchant_1 = Merchant.create!(name: "Larry's Lucky Ladles")
 
     @item_1 = Item.create!(name: "Star Wars Ladle", description: "May the soup be with you", unit_price: 10, merchant_id: @merchant_1.id)
@@ -36,6 +37,7 @@ RSpec.describe Customer, type: :model do
     @transaction_6 = Transaction.create!(credit_card_number: "5235 2374 3233 2322", credit_card_expiration_date: "2023-03-23", result: 0, invoice_id: @invoice_2.id)
     @transaction_7 = Transaction.create!(credit_card_number: "5233 2322 3211 2300", credit_card_expiration_date: "2021-12-23", result: 1, invoice_id: @invoice_2.id)
   end
+  end
 
   describe "relationships" do
     it {should have_many :invoices}
@@ -45,6 +47,12 @@ RSpec.describe Customer, type: :model do
   it 'can calculate number of transactions' do
     expect(@customer_1.number_of_transactions).to eq(6)
     expect(@customer_2.number_of_transactions).to eq(0)
+  end
+
+  it 'returns 0 if a customer has no transactions', skip_before: true  do
+    customer = Customer.create!(first_name: "Sally", last_name: "Brown")
+
+    expect(customer.number_of_transactions).to eq(0)
   end
 
   it 'can find top 5 customers by number of transactions w/ succesful transactions' do
