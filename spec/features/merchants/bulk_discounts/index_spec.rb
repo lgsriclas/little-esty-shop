@@ -41,6 +41,12 @@ RSpec.describe 'bulk discounts index page' do
     @bd_2 = BulkDiscount.create!(quantity_threshold: 15, percent_discount: 30, merchant_id: @merchant_2.id)
   end
 
+  it 'shows the next three US public holidays' do
+    visit merchant_bulk_discounts_path(@merchant_1)
+
+    expect(page).to have_content("Thanksgiving Day, Christmas Day, New Year's Day,")
+  end
+
   it 'has links for all bulk discount show pages' do
     visit merchant_bulk_discounts_path(@merchant_1)
 
