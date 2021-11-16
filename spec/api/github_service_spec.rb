@@ -1,4 +1,5 @@
 require './app/service/github_service'
+require 'rails_helper'
 
 RSpec.describe GithubService do
   before :each do
