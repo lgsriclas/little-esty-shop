@@ -17,6 +17,15 @@
   <% end %> </p>
 
 <h3>Invoice Items: </h3>
-
+  <% @invoice.invoice_items.each do |ii| %>
+    <section id="ii-<%= ii.id %>">
+      Item Name: <%= ii.item.name %>
+      <% if ii.discount %>
+        <p><%= link_to "Discount ID: #{ii.discount.id}", merchant_bulk_discount_path(ii.merchant.id, ii.discount.id) %></p>
+      <% else %>
+      - No Discount
+      <% end %>
+    </section><br>
+  <% end %>
 <h4> Total Revenue: $<%= @invoice.total_revenue %></h4>
 <h4> Total Revenue After Discounts: $<%= @invoice.discounted_revenue %></h4>

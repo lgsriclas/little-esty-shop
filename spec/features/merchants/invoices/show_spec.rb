@@ -26,6 +26,7 @@ RSpec.describe 'merchant invoices show page' do
     @ii_2 = InvoiceItem.create!(quantity: 1, unit_price: 12, status: 2, item_id: @item_2.id, invoice_id: @invoice_2.id)
     @ii_3 = InvoiceItem.create!(quantity: 1, unit_price: 40, status: 0, item_id: @item_3.id, invoice_id: @invoice_3.id)
     @ii_4 = InvoiceItem.create!(quantity: 3, unit_price: 30, status: 2, item_id: @item_4.id, invoice_id: @invoice_4.id)
+    @ii_5 = InvoiceItem.create!(quantity: 5, unit_price: 14, status: 0, item_id: @item_5.id, invoice_id: @invoice_1.id)
 
     @bd_1 = BulkDiscount.create!(quantity_threshold: 10, percent_discount: 20, merchant_id: @merchant_1.id)
     @bd_2 = BulkDiscount.create!(quantity_threshold: 15, percent_discount: 30, merchant_id: @merchant_1.id)
@@ -86,9 +87,9 @@ RSpec.describe 'merchant invoices show page' do
   end
 
   it 'shows total revenue for invoice' do
-    visit merchant_invoice_path(@merchant_1, @invoice_1)
+    visit merchant_invoice_path(@merchant_1, @invoice_2)
 
-    expect(page).to have_content(@ii_1.item_revenue)
+    expect(page).to have_content(@ii_2.item_revenue)
   end
 
   it 'allows user to update item status' do
@@ -118,13 +119,14 @@ RSpec.describe 'merchant invoices show page' do
     it 'shows the total discounted revenue for a merchant' do
       visit merchant_invoice_path(@merchant_1, @invoice_1)
 
-      expect(page).to have_content("Total Revenue After Discounts: $80.0")
+      expect(page).to have_content("Total Revenue After Discounts: $150.0")
     end
 
     it 'has a link for each bulk discount applied' do
       visit merchant_invoice_path(@merchant_1, @invoice_1)
 
       expect(page).to have_link("#{@bd_1.id}")
+      expect(page).to have_content("Item Name: Football Ladle - No Discount")
     end
   end
 end
