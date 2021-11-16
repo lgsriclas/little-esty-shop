@@ -39,11 +39,13 @@ RSpec.describe 'bulk discounts index page' do
 
     @bd_1 = BulkDiscount.create!(quantity_threshold: 10, percent_discount: 20, merchant_id: @merchant_1.id)
     @bd_2 = BulkDiscount.create!(quantity_threshold: 15, percent_discount: 30, merchant_id: @merchant_2.id)
+    @bd_3 = BulkDiscount.create!(quantity_threshold: 12, percent_discount: 25, merchant_id: @merchant_1.id)
   end
 
   it 'shows the next three US public holidays' do
     visit merchant_bulk_discounts_path(@merchant_1)
 
+    expect(page).to have_content("Next Three Holidays:")
     expect(page).to have_content("Thanksgiving Day, Christmas Day, New Year's Day,")
   end
 
@@ -58,11 +60,13 @@ RSpec.describe 'bulk discounts index page' do
     expect(current_path).to eq("/merchants/#{@merchant_1.id}/bulk_discounts/#{@bd_1.id}")
   end
 
-  xit 'shows quantity thresholds for each bulk discount' do
+  it 'shows quantity thresholds for each bulk discount' do
     visit merchant_bulk_discounts_path(@merchant_1)
 
-    expect(page).to have_content(@bd_1.quantity_threshold)
-    expect(page).to_not have_content(@bd_2.quantity_threshold)
+    within "#bd-#{@bd_1.id}" do
+      expect(page).to have_content(@bd_1.quantity_threshold)
+      expect(page).to_not have_content(@bd_3.quantity_threshold)
+    end
   end
 
   it 'has a link to create a new discount' do
@@ -101,5 +105,6 @@ RSpec.describe 'bulk discounts index page' do
 
     expect(current_path).to eq(merchant_bulk_discounts_path(@merchant_1))
     expect(page).to_not have_content(@bd_1.id)
+    expect(page).to have_content(@bd_3.id)
   end
 end
