@@ -46,7 +46,11 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 5.0'
   gem 'launchy'
   gem 'simplecov'
+end
 
+group :test do
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :development do
